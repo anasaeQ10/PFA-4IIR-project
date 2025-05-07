@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/base}">
+<head>
+    <title>Tableau de bord - Statistiques</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+    <style>
+        :root {
+            --admin-color: #dc3545;
+            --student-color: #28a745;
+            --rh-color: #17a2b8;
+        }
+
+        .stat-card {
+            border-radius: 10px;
+            border-left: 4px solid;
+            transition: all 0.3s ease;
+            height: 100%;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+
+        .admin-card { border-left-color: var(--admin-color); }
+        .student-card { border-left-color: var(--student-color); }
+        .rh-card { border-left-color: var(--rh-color); }
+
+        .stat-value {
+            font-size: 2.5rem;
+            font-weight: 700;
+        }
+
+        .progress {
+            height: 8px;
+        }
+    </style>
+</head>
+<body>
+<div layout:fragment="content">
+    <div class="container-fluid py-4">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h2 class="mb-0">
+                <i class="bi bi-speedometer2 me-2 text-primary"></i>Tableau de bord
+            </h2>
+            <span class="badge bg-primary">
+                <i class="bi bi-shield-lock me-1"></i>Espace Admin
+            </span>
+        </div>
+
+        <!-- Cartes statistiques -->
+        <div class="row g-4 mb-4">
+            <div class="col-md-4">
+                <div class="card stat-card h-100">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between">
+                            <div>
+                                <h6 class="text-muted text-uppercase small">Utilisateurs</h6>
+                                <h2 class="stat-value" th:text="${totalUsers}">0</h2>
+                            </div>
+                            <i class="bi bi-people-fill fs-1 text-muted"></i>
+                        </div>
+                        <div class="progress mt-2">
+                            <div class="progress-bar bg-primary" style="width: 100%"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Ajoutez les autres cartes de la même manière -->
+        </div>
+
+        <!-- Section Répartition -->
+        <div class="card mb-4">
+            <div class="card-header bg-white">
+                <h5 class="mb-0">
+                    <i class="bi bi-pie-chart-fill me-2 text-primary"></i>Répartition par rôle
+                </h5>
+            </div>
+            <div class="card-body">
+                <div class="row g-4">
+                    <div class="col-md-4">
+                        <div class="card stat-card admin-card">
+                            <div class="card-body">
+                                <h6 class="text-muted">Administrateurs</h6>
+                                <h2 class="stat-value text-danger" th:text="${adminCount}">0</h2>
+                                <div class="d-flex align-items-center">
+                                    <div class="progress flex-grow-1 me-2">
+                                        <div class="progress-bar bg-danger"
+                                             th:style="'width:' + ${(adminCount/totalUsers)*100} + '%'"></div>
+                                    </div>
+                                    <span th:text="${#numbers.formatDecimal((adminCount/totalUsers)*100, 1, 2)} + '%'"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Ajoutez les cartes étudiant et RH de la même manière -->
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

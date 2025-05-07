@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/base}">
+<head>
+    <title layout:title-pattern="$CONTENT_TITLE - Mon App">Modifier Profil</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+    <style layout:fragment="custom-css">
+        .profile-form-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        .form-section {
+            margin-bottom: 2rem;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .form-section-header {
+            background-color: #4e73df;
+            color: white;
+            padding: 1rem;
+            font-weight: 600;
+        }
+        .form-section-body {
+            padding: 1.5rem;
+            background-color: white;
+        }
+        .form-actions {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 2rem;
+        }
+        .readonly-field {
+            background-color: #f8f9fa;
+        }
+    </style>
+</head>
+<body>
+<div layout:fragment="content">
+    <div class="profile-form-container">
+        <!-- Messages d'alerte -->
+        <div th:if="${successMessage}" class="alert alert-success alert-dismissible fade show" role="alert">
+            <span th:text="${successMessage}"></span>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+
+        <div th:if="${errorMessage}" class="alert alert-danger alert-dismissible fade show" role="alert">
+            <span th:text="${errorMessage}"></span>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+
+        <h2 class="mb-4"><i class="bi bi-person-gear me-2"></i>Modifier mon profil</h2>
+
+        <form th:action="@{/profile/update}" th:object="${userForm}" method="post">
+            <!-- Section Informations personnelles -->
+            <div class="form-section">
+                <div class="form-section-header">
+                    <i class="bi bi-person-vcard me-2"></i>Informations personnelles
+                </div>
+                <div class="form-section-body">
+                    <div class="mb-3">
+                        <label for="firstName" class="form-label">Prénom</label>
+                        <input type="text" class="form-control" id="firstName"
+                               th:field="*{firstName}" placeholder="Votre prénom">
+                        <div class="invalid-feedback d-block" th:if="${#fields.hasErrors('firstName')}"
+                             th:errors="*{firstName}"></div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="lastName" class="form-label">Nom</label>
+                        <input type="text" class="form-control" id="lastName"
+                               th:field="*{lastName}" placeholder="Votre nom">
+                        <div class="invalid-feedback d-block" th:if="${#fields.hasErrors('lastName')}"
+                             th:errors="*{lastName}"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section Contact -->
+            <div class="form-section">
+                <div class="form-section-header">
+                    <i class="bi bi-telephone me-2"></i>Coordonnées
+                </div>
+                <div class="form-section-body">
+                    <div class="mb-3">
+                        <label for="email" class="form-label">Email *</label>
+                        <input type="email" class="form-control" id="email"
+                               th:field="*{email}" required
+                               placeholder="exemple@domaine.com">
+                        <div class="invalid-feedback d-block"
+                             th:if="${#fields.hasErrors('email')}"
+                             th:errors="*{email}"></div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="phoneNumber" class="form-label">Téléphone</label>
+                        <input type="tel" class="form-control" id="phoneNumber"
+                               th:field="*{phoneNumber}" placeholder="+212 6...">
+                        <div class="invalid-feedback d-block" th:if="${#fields.hasErrors('phoneNumber')}"
+                             th:errors="*{phoneNumber}"></div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="address" class="form-label">Adresse</label>
+                        <textarea class="form-control" id="address"
+                                  th:field="*{address}" rows="3"
+                                  placeholder="123 Rue Principale, Apt 4B"></textarea>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section Mot de passe -->
+            <div class="form-section">
+                <div class="form-section-header">
+                    <i class="bi bi-shield-lock me-2"></i>Modification du mot de passe
+                </div>
+                <div class="form-section-body">
+                    <div class="mb-3">
+                        <label for="newPassword" class="form-label">Nouveau mot de passe</label>
+                        <input type="password" class="form-control" id="newPassword"
+                               th:field="*{newPassword}"
+                               placeholder="Au moins 8 caractères avec majuscule, minuscule, chiffre et caractère spécial">
+                        <div class="invalid-feedback d-block" th:if="${#fields.hasErrors('newPassword')}"
+                             th:errors="*{newPassword}"></div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="confirmPassword" class="form-label">Confirmer le nouveau mot de passe</label>
+                        <input type="password" class="form-control" id="confirmPassword"
+                               th:field="*{confirmPassword}"
+                               placeholder="Retapez votre nouveau mot de passe">
+                        <div class="invalid-feedback d-block" th:if="${#fields.hasErrors('confirmPassword')}"
+                             th:errors="*{confirmPassword}"></div>
+                    </div>
+
+                    <div class="alert alert-info">
+                        <small>
+                            <i class="bi bi-info-circle"></i> Le mot de passe doit contenir:
+                            <ul class="mb-0">
+                                <li>Au moins 8 caractères</li>
+                                <li>1 majuscule et 1 minuscule</li>
+                                <li>1 chiffre</li>
+                                <li>1 caractère spécial (@$!%*?&)</li>
+                            </ul>
+                        </small>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Boutons d'action -->
+            <div class="form-actions">
+                <a th:href="@{/profile}" class="btn btn-outline-secondary">
+                    <i class="bi bi-arrow-left me-2"></i>Retour au profil
+                </a>
+                <button type="submit" class="btn btn-primary">
+                    <i class="bi bi-check-circle me-2"></i>Enregistrer les modifications
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/base}">
+<head>
+    <title layout:title-pattern="$CONTENT_TITLE - Mon App">Modifier Profil</title>
+    <style layout:fragment="custom-css">
+        .profile-form {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        .form-section {
+            margin-bottom: 2rem;
+        }
+    </style>
+</head>
+<body>
+<div layout:fragment="content">
+    <div class="container py-5">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <h2 class="mb-4">Modifier mon profil</h2>
+
+                <form th:action="@{/profile/update}" th:object="${userForm}" method="post" class="profile-form">
+                    <!-- Section Informations de base -->
+                    <div class="card form-section shadow-sm mb-4">
+                        <div class="card-header bg-primary text-white">
+                            <h5 class="mb-0">Informations personnelles</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="mb-3">
+                                <label for="firstName" class="form-label">Prénom</label>
+                                <input type="text" class="form-control" id="firstName"
+                                       th:field="*{firstName}" placeholder="Votre prénom">
+                                <small class="text-danger" th:if="${#fields.hasErrors('firstName')}"
+                                       th:errors="*{firstName}"></small>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="lastName" class="form-label">Nom</label>
+                                <input type="text" class="form-control" id="lastName"
+                                       th:field="*{lastName}" placeholder="Votre nom">
+                                <small class="text-danger" th:if="${#fields.hasErrors('lastName')}"
+                                       th:errors="*{lastName}"></small>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Section Contact -->
+                    <div class="card form-section shadow-sm mb-4">
+                        <div class="card-header bg-primary text-white">
+                            <h5 class="mb-0">Coordonnées</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="mb-3">
+                                <label for="email" class="form-label">Email</label>
+                                <input type="email" class="form-control" id="email"
+                                       th:field="*{email}" readonly>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="phoneNumber" class="form-label">Téléphone</label>
+                                <input type="tel" class="form-control" id="phoneNumber"
+                                       th:field="*{phoneNumber}" placeholder="+212 6...">
+                                <small class="text-danger" th:if="${#fields.hasErrors('phoneNumber')}"
+                                       th:errors="*{phoneNumber}"></small>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="address" class="form-label">Adresse</label>
+                                <textarea class="form-control" id="address"
+                                          th:field="*{address}" rows="3" placeholder="Votre adresse" th:errorclass="is-invalid"></textarea>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Boutons d'action -->
+                    <div class="d-flex justify-content-between">
+                        <a th:href="@{/profile}" class="btn btn-secondary">
+                            <i class="bi bi-arrow-left"></i> Annuler
+                        </a>
+                        <button type="submit" class="btn btn-primary">
+                            <i class="bi bi-check-circle"></i> Enregistrer
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

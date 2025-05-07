@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Career Center - Honoris United Universities</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <link rel="stylesheet" href="/css/welcome-style.css">
+    <style>
+        :root {
+            --primary-color: #0d6efd;
+            --secondary-color: #6c757d;
+            --accent-color: #ff6b6b;
+            --light-bg: #f8f9fa;
+            --dark-bg: #212529;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+        }
+
+        .hero-section {
+            background: linear-gradient(135deg, var(--primary-color), #4a00e0);
+            color: white;
+            padding: 6rem 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiPjxkZWZzPjxwYXR0ZXJuIGlkPSJwYXR0ZXJuIiB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHBhdHRlcm5Vbml0cz0idXNlclNwYWNlT25Vc2UiIHBhdHRlcm5UcmFuc2Zvcm09InJvdGF0ZSg0NSkiPjxyZWN0IHdpZHRoPSIyMCIgaGVpZ2h0PSIyMCIgZmlsbD0icmdiYSgyNTUsMjU1LDI1NSwwLjA1KSIvPjwvcGF0dGVybj48L2RlZnM+PHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0idXJsKCNwYXR0ZXJuKSIvPjwvc3ZnPg==');
+        }
+
+        .hero-title {
+            font-weight: 700;
+            margin-bottom: 1rem;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .hero-subtitle {
+            font-weight: 300;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+
+        .btn-hero {
+            padding: 0.75rem 2rem;
+            border-radius: 50px;
+            font-weight: 600;
+            margin: 0.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .btn-hero-primary {
+            background-color: white;
+            color: var(--primary-color);
+            border: 2px solid white;
+        }
+
+        .btn-hero-primary:hover {
+            background-color: transparent;
+            color: white;
+        }
+
+        .btn-hero-outline {
+            background-color: transparent;
+            color: white;
+            border: 2px solid white;
+        }
+
+        .btn-hero-outline:hover {
+            background-color: white;
+            color: var(--primary-color);
+        }
+
+        .section-title {
+            position: relative;
+            display: inline-block;
+            margin-bottom: 2rem;
+            font-weight: 700;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background-color: var(--primary-color);
+        }
+
+        .job-card {
+            border: none;
+            border-radius: 10px;
+            margin-bottom: 1.5rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            overflow: hidden;
+            position: relative;
+        }
+
+        .job-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 5px;
+            height: 100%;
+            background-color: var(--primary-color);
+        }
+
+        .job-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+
+        .job-type {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background-color: var(--primary-color);
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 50px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .job-title {
+            font-weight: 600;
+            color: var(--dark-bg);
+            margin-bottom: 0.5rem;
+        }
+
+        .job-company {
+            color: var(--primary-color);
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+        }
+
+        .job-location, .job-date {
+            color: var(--secondary-color);
+            font-size: 0.9rem;
+        }
+
+        .job-description {
+            color: var(--secondary-color);
+            margin: 1rem 0;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .features-section {
+            background-color: var(--light-bg);
+            padding: 4rem 0;
+        }
+
+        .feature-icon {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        .feature-title {
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .feature-text {
+            color: var(--secondary-color);
+        }
+
+        .footer {
+            background-color: var(--dark-bg);
+            color: white;
+            padding: 3rem 0;
+        }
+
+        .footer-title {
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-links {
+            list-style: none;
+            padding: 0;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-links a {
+            color: rgba(255,255,255,0.7);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: white;
+        }
+
+        .social-icons a {
+            color: white;
+            font-size: 1.5rem;
+            margin-right: 1rem;
+            transition: color 0.3s;
+        }
+
+        .social-icons a:hover {
+            color: var(--primary-color);
+        }
+
+        .no-jobs {
+            background-color: var(--light-bg);
+            border-radius: 10px;
+            padding: 3rem;
+            text-align: center;
+        }
+
+        .no-jobs-icon {
+            font-size: 3rem;
+            color: var(--secondary-color);
+            margin-bottom: 1rem;
+        }
+
+        .search-bar {
+            background-color: white;
+            border-radius: 50px;
+            padding: 0.5rem;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            margin-bottom: 3rem;
+        }
+
+        .search-input {
+            border: none;
+            outline: none;
+            padding: 0.75rem 1.5rem;
+            width: 100%;
+        }
+
+        .search-btn {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            padding: 0.75rem 2rem;
+            font-weight: 600;
+            transition: background-color 0.3s;
+        }
+
+        .search-btn:hover {
+            background-color: #0b5ed7;
+        }
+
+        @media (max-width: 768px) {
+            .hero-section {
+                padding: 4rem 0;
+            }
+
+            .hero-title {
+                font-size: 2.5rem;
+            }
+        }
+
+    </style>
+</head>
+<body>
+<!-- Section Hero -->
+<section class="hero-section animate__animated animate__fadeIn">
+    <div class="container">
+        <h1 class="hero-title display-3 animate__animated animate__fadeInDown">CAREER CENTER</h1>
+        <p class="hero-subtitle lead animate__animated animate__fadeInDown animate__delay-1s">HONORIS UNITED UNIVERSITIES</p>
+
+        <div class="mt-4 animate__animated animate__fadeInUp animate__delay-1s">
+            <a th:href="@{/login}" class="btn btn-hero btn-hero-primary">
+                <i class="bi bi-box-arrow-in-right"></i> S'identifier
+            </a>
+            <a th:href="@{/register}" class="btn btn-hero btn-hero-outline">
+                <i class="bi bi-person-plus"></i> Créer un compte
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- Features Section -->
+<section class="features-section">
+    <div class="container">
+        <div class="row text-center">
+            <div class="col-md-4 mb-4 animate__animated animate__fadeIn">
+                <div class="p-4">
+                    <i class="bi bi-search feature-icon"></i>
+                    <h3 class="feature-title">Trouvez votre emploi idéal</h3>
+                    <p class="feature-text">Accédez à des milliers d'offres d'emploi dans divers secteurs et localisations.</p>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4 animate__animated animate__fadeIn animate__delay-1s">
+                <div class="p-4">
+                    <i class="bi bi-briefcase feature-icon"></i>
+                    <h3 class="feature-title">Postulez facilement</h3>
+                    <p class="feature-text">Postulez en quelques clics et suivez l'état de vos candidatures.</p>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4 animate__animated animate__fadeIn animate__delay-2s">
+                <div class="p-4">
+                    <i class="bi bi-people feature-icon"></i>
+                    <h3 class="feature-title">Réseau professionnel</h3>
+                    <p class="feature-text">Connectez-vous avec des employeurs et des anciens élèves de votre université.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Offres d'emploi -->
+<section class="py-5">
+    <div class="container">
+        <h2 class="section-title animate__animated animate__fadeIn">Offres d'emplois récentes</h2>
+
+        <!-- Barre de recherche -->
+        <div class="row animate__animated animate__fadeIn">
+            <div class="col-md-8 mx-auto">
+                <div class="search-bar">
+                    <div class="input-group">
+                        <input type="text" class="search-input" placeholder="Rechercher un emploi, une entreprise...">
+                        <button class="search-btn" type="button">
+                            <i class="bi bi-search"></i> Rechercher
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Liste des offres -->
+        <div th:each="offer : ${offers}" class="card job-card animate__animated animate__fadeInUp">
+            <div class="card-body p-4">
+                <span class="job-type" th:text="${offer.type}">CDI</span>
+                <h5 class="job-title" th:text="${offer.title}">Titre de l'offre</h5>
+                <h6 class="job-company" th:text="${offer.company}">Entreprise</h6>
+                <div class="d-flex justify-content-between mb-2">
+                    <p class="job-location mb-0">
+                        <i class="bi bi-geo-alt"></i>
+                        <span th:text="${offer.location}">Localisation</span>
+                    </p>
+                    <p class="job-date mb-0">
+                        <i class="bi bi-clock"></i>
+                        <span th:text="${#dates.format(offer.date, 'dd/MM/yyyy')}">01/01/2023</span>
+                    </p>
+                </div>
+                <p class="job-description" th:text="${offer.description}">Description courte de l'offre d'emploi qui donne un aperçu des principales responsabilités et exigences...</p>
+                <a href="#" class="btn btn-outline-primary">Voir détails</a>
+            </div>
+        </div>
+
+        <!-- Message si pas d'offres -->
+        <div th:if="${offers == null or offers.empty}" class="no-jobs animate__animated animate__fadeIn">
+            <i class="bi bi-briefcase no-jobs-icon"></i>
+            <h4>Aucune offre disponible pour le moment</h4>
+            <p class="text-muted">Revenez plus tard ou inscrivez-vous pour être alerté des nouvelles offres</p>
+            <a th:href="@{/register}" class="btn btn-primary mt-3">
+                <i class="bi bi-bell"></i> S'inscrire aux alertes
+            </a>
+        </div>
+
+        <!-- Bouton pour voir plus d'offres -->
+        <div class="text-center mt-4 animate__animated animate__fadeIn">
+            <a href="#" class="btn btn-outline-primary">
+                <i class="bi bi-arrow-down"></i> Voir plus d'offres
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer class="footer">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4 mb-4">
+                <h5 class="footer-title">Career Center</h5>
+                <p>Le portail d'emploi des universités Honoris United Universities. Connectons les talents aux opportunités.</p>
+                <div class="social-icons mt-3">
+                    <a href="#"><i class="bi bi-facebook"></i></a>
+                    <a href="#"><i class="bi bi-twitter"></i></a>
+                    <a href="#"><i class="bi bi-linkedin"></i></a>
+                    <a href="#"><i class="bi bi-instagram"></i></a>
+                </div>
+            </div>
+            <div class="col-md-2 mb-4">
+                <h5 class="footer-title">Liens rapides</h5>
+                <ul class="footer-links">
+                    <li><a href="#">Accueil</a></li>
+                    <li><a href="#">Offres d'emploi</a></li>
+                    <li><a href="#">Entreprises</a></li>
+                    <li><a href="#">Événements</a></li>
+                    <li><a href="#">Ressources</a></li>
+                </ul>
+            </div>
+            <div class="col-md-3 mb-4">
+                <h5 class="footer-title">Pour les candidats</h5>
+                <ul class="footer-links">
+                    <li><a href="#">Créer un compte</a></li>
+                    <li><a href="#">Postuler à un emploi</a></li>
+                    <li><a href="#">Conseils carrière</a></li>
+                    <li><a href="#">FAQ</a></li>
+                </ul>
+            </div>
+            <div class="col-md-3 mb-4">
+                <h5 class="footer-title">Contact</h5>
+                <ul class="footer-links">
+                    <li><i class="bi bi-envelope"></i> contact@careercenter-huu.com</li>
+                    <li><i class="bi bi-telephone"></i> +123 456 7890</li>
+                    <li><i class="bi bi-geo-alt"></i> 123 Rue de l'Université, Tunis</li>
+                </ul>
+            </div>
+        </div>
+        <hr class="mt-4 mb-4" style="border-color: rgba(255,255,255,0.1);">
+        <div class="row">
+            <div class="col-md-6 text-center text-md-start">
+                <p class="mb-0">&copy; 2023 Career Center - Honoris United Universities. Tous droits réservés.</p>
+            </div>
+            <div class="col-md-6 text-center text-md-end">
+                <a href="#" class="text-white me-3">Politique de confidentialité</a>
+                <a href="#" class="text-white">Conditions d'utilisation</a>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    // Animation au scroll
+    document.addEventListener('DOMContentLoaded', function() {
+        const animateElements = document.querySelectorAll('.animate__animated');
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const animation = entry.target.getAttribute('data-animate') || 'fadeInUp';
+                    entry.target.classList.add(animation);
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, {
+            threshold: 0.1
+        });
+
+        animateElements.forEach(element => {
+            observer.observe(element);
+        });
+    });
+</script>
+</body>
+</html>

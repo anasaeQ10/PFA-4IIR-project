@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inscription</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #4e73df;
+            --secondary-color: #f8f9fc;
+        }
+
+        body {
+            background-color: var(--secondary-color);
+            height: 100vh;
+            display: flex;
+            align-items: center;
+        }
+
+        .registration-container {
+            max-width: 500px;
+            width: 100%;
+            padding: 40px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.15);
+            margin: 0 auto;
+        }
+
+        .registration-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .registration-header h1 {
+            color: var(--primary-color);
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .registration-header p {
+            color: #858796;
+        }
+
+        .form-control {
+            padding: 12px 15px;
+            border-radius: 6px;
+            margin-bottom: 15px;
+        }
+
+        .btn-register {
+            background-color: var(--primary-color);
+            border: none;
+            padding: 12px;
+            font-weight: 600;
+            width: 100%;
+            border-radius: 6px;
+            transition: all 0.3s;
+        }
+
+        .btn-register:hover {
+            background-color: #3a5bc7;
+        }
+
+        .form-floating label {
+            padding: 12px 15px;
+        }
+
+        .error-message {
+            color: #dc3545;
+            font-size: 0.875em;
+            margin-top: 5px;
+        }
+
+        .password-requirements {
+            font-size: 0.8rem;
+            color: #6c757d;
+            margin-top: 5px;
+        }
+
+        .divider {
+            display: flex;
+            align-items: center;
+            margin: 25px 0;
+        }
+
+        .divider::before, .divider::after {
+            content: "";
+            flex: 1;
+            border-bottom: 1px solid #e3e6f0;
+        }
+
+        .divider-text {
+            padding: 0 10px;
+            color: #b7b9cc;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="registration-container">
+        <div class="registration-header">
+            <h1><i class="fas fa-user-plus me-2"></i>Créer un compte</h1>
+            <p>Remplissez le formulaire pour vous inscrire</p>
+        </div>
+
+        <form th:action="@{/register}" th:object="${user}" method="post">
+            <!-- Nom et Prénom -->
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <div class="form-floating">
+                        <input type="text" class="form-control" id="firstName" th:field="*{firstName}"
+                               placeholder="Prénom" required>
+                        <label for="firstName"><i class="fas fa-user me-2"></i>Prénom *</label>
+                    </div>
+                    <small class="error-message" th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}"></small>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <div class="form-floating">
+                        <input type="text" class="form-control" id="lastName" th:field="*{lastName}"
+                               placeholder="Nom" required>
+                        <label for="lastName"><i class="fas fa-user me-2"></i>Nom *</label>
+                    </div>
+                    <small class="error-message" th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}"></small>
+                </div>
+            </div>
+
+            <!-- Email -->
+            <div class="mb-3">
+                <div class="form-floating">
+                    <input type="email" class="form-control" id="email" th:field="*{email}"
+                           placeholder="name@example.com" required>
+                    <label for="email"><i class="fas fa-envelope me-2"></i>Email *</label>
+                </div>
+                <small class="error-message" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></small>
+            </div>
+
+            <!-- Mot de passe -->
+            <div class="mb-3">
+                <div class="form-floating">
+                    <input type="password" class="form-control" id="password" th:field="*{password}"
+                           placeholder="Mot de passe" required>
+                    <label for="password"><i class="fas fa-lock me-2"></i>Mot de passe *</label>
+                </div>
+                <small class="password-requirements">
+                    <i class="fas fa-info-circle me-1"></i>
+                    Doit contenir au moins 8 caractères, une majuscule, une minuscule, un chiffre et un caractère spécial
+                </small>
+                <small class="error-message" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></small>
+            </div>
+
+            <!-- Confirmation mot de passe -->
+            <div class="mb-3">
+                <div class="form-floating">
+                    <input type="password" class="form-control" id="confirmPassword" name="confirmPassword"
+                           placeholder="Confirmer le mot de passe" required>
+                    <label for="confirmPassword"><i class="fas fa-lock me-2"></i>Confirmer le mot de passe *</label>
+                </div>
+            </div>
+
+            <!-- Téléphone -->
+            <div class="mb-3">
+                <div class="form-floating">
+                    <input type="tel" class="form-control" id="phoneNumber" th:field="*{phoneNumber}"
+                           placeholder="Téléphone">
+                    <label for="phoneNumber"><i class="fas fa-phone me-2"></i>Téléphone</label>
+                </div>
+                <small class="error-message" th:if="${#fields.hasErrors('phoneNumber')}" th:errors="*{phoneNumber}"></small>
+            </div>
+
+            <!-- Adresse -->
+            <div class="mb-4">
+                <div class="form-floating">
+                        <textarea class="form-control" id="address" th:field="*{address}"
+                                  placeholder="Adresse" style="height: 80px"></textarea>
+                    <label for="address"><i class="fas fa-home me-2"></i>Adresse</label>
+                </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary btn-register mb-3">
+                <i class="fas fa-user-plus me-2"></i>S'inscrire
+            </button>
+
+            <div class="divider">
+                <span class="divider-text">OU</span>
+            </div>
+
+            <div class="text-center">
+                <p class="mb-0">Déjà un compte ? <a th:href="@{/login}" class="text-primary">Se connecter</a></p>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Bootstrap JS Bundle with Popper -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
