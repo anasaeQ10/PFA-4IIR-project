@@ -34,4 +34,5 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     @Query("SELECT COUNT(DISTINCT u) FROM User u WHERE u.lastLoginDate >= :date")
     long countActiveUsersSince(LocalDate date);
+
 }
