@@ -11,6 +11,8 @@
             --admin-color: #dc3545;
             --student-color: #28a745;
             --rh-color: #17a2b8;
+            --offer-color: #6f42c1;
+            --active-color: #fd7e14;
         }
 
         .stat-card {
@@ -18,6 +20,7 @@
             border-left: 4px solid;
             transition: all 0.3s ease;
             height: 100%;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
         }
 
         .stat-card:hover {
@@ -28,6 +31,8 @@
         .admin-card { border-left-color: var(--admin-color); }
         .student-card { border-left-color: var(--student-color); }
         .rh-card { border-left-color: var(--rh-color); }
+        .offer-card { border-left-color: var(--offer-color); }
+        .active-card { border-left-color: var(--active-color); }
 
         .stat-value {
             font-size: 2.5rem;
@@ -36,6 +41,12 @@
 
         .progress {
             height: 8px;
+            border-radius: 4px;
+        }
+
+        .stat-icon {
+            font-size: 2.5rem;
+            opacity: 0.2;
         }
     </style>
 </head>
@@ -51,17 +62,17 @@
             </span>
         </div>
 
-        <!-- Cartes statistiques -->
+        <!-- Cartes statistiques principales -->
         <div class="row g-4 mb-4">
             <div class="col-md-4">
-                <div class="card stat-card h-100">
+                <div class="card stat-card">
                     <div class="card-body">
                         <div class="d-flex justify-content-between">
                             <div>
                                 <h6 class="text-muted text-uppercase small">Utilisateurs</h6>
-                                <h2 class="stat-value" th:text="${totalUsers}">0</h2>
+                                <h2 class="stat-value text-primary" th:text="${totalUsers}">0</h2>
                             </div>
-                            <i class="bi bi-people-fill fs-1 text-muted"></i>
+                            <i class="bi bi-people-fill stat-icon text-primary"></i>
                         </div>
                         <div class="progress mt-2">
                             <div class="progress-bar bg-primary" style="width: 100%"></div>
@@ -70,40 +81,251 @@
                 </div>
             </div>
 
-            <!-- Ajoutez les autres cartes de la même manière -->
+            <div class="col-md-4">
+                <div class="card stat-card offer-card">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between">
+                            <div>
+                                <h6 class="text-muted text-uppercase small">Offres d'emploi</h6>
+                                <h2 class="stat-value" th:text="${totalOffers}">0</h2>
+                            </div>
+                            <i class="bi bi-briefcase-fill stat-icon" style="color: var(--offer-color)"></i>
+                        </div>
+                        <div class="progress mt-2">
+                            <div class="progress-bar" style="width: 100%; background-color: var(--offer-color)"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="card stat-card active-card">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between">
+                            <div>
+                                <h6 class="text-muted text-uppercase small">Nouvelles offres (7j)</h6>
+                                <h2 class="stat-value" th:text="${newOffersLastWeek}">0</h2>
+                            </div>
+                            <i class="bi bi-calendar-week-fill stat-icon" style="color: var(--active-color)"></i>
+                        </div>
+                        <div class="progress mt-2">
+                            <div class="progress-bar" style="width: 100%; background-color: var(--active-color)"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
 
-        <!-- Section Répartition -->
+        <!-- Section Répartition utilisateurs -->
         <div class="card mb-4">
-            <div class="card-header bg-white">
+            <div class="card-header bg-white border-bottom-0">
                 <h5 class="mb-0">
-                    <i class="bi bi-pie-chart-fill me-2 text-primary"></i>Répartition par rôle
+                    <i class="bi bi-pie-chart-fill me-2 text-primary"></i>Répartition des utilisateurs
                 </h5>
             </div>
-            <div class="card-body">
+            <div class="card-body pt-0">
                 <div class="row g-4">
                     <div class="col-md-4">
-                        <div class="card stat-card admin-card">
+                        <div class="card stat-card admin-card h-100">
                             <div class="card-body">
-                                <h6 class="text-muted">Administrateurs</h6>
+                                <h6 class="text-muted text-uppercase small">Administrateurs</h6>
                                 <h2 class="stat-value text-danger" th:text="${adminCount}">0</h2>
                                 <div class="d-flex align-items-center">
                                     <div class="progress flex-grow-1 me-2">
                                         <div class="progress-bar bg-danger"
-                                             th:style="'width:' + ${(adminCount/totalUsers)*100} + '%'"></div>
+                                             th:style="'width:' + ${totalUsers > 0 ? (adminCount/totalUsers)*100 : 0} + '%'"></div>
                                     </div>
-                                    <span th:text="${#numbers.formatDecimal((adminCount/totalUsers)*100, 1, 2)} + '%'"></span>
+                                    <span th:text="${totalUsers > 0 ? #numbers.formatDecimal((adminCount/totalUsers)*100, 1, 2) : 0} + '%'"></span>
                                 </div>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Ajoutez les cartes étudiant et RH de la même manière -->
+                    <div class="col-md-4">
+                        <div class="card stat-card student-card h-100">
+                            <div class="card-body">
+                                <h6 class="text-muted text-uppercase small">Étudiants</h6>
+                                <h2 class="stat-value text-success" th:text="${studentCount}">0</h2>
+                                <div class="d-flex align-items-center">
+                                    <div class="progress flex-grow-1 me-2">
+                                        <div class="progress-bar bg-success"
+                                             th:style="'width:' + ${totalUsers > 0 ? (studentCount/totalUsers)*100 : 0} + '%'"></div>
+                                    </div>
+                                    <span th:text="${totalUsers > 0 ? #numbers.formatDecimal((studentCount/totalUsers)*100, 1, 2) : 0} + '%'"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
+                    <div class="col-md-4">
+                        <div class="card stat-card rh-card h-100">
+                            <div class="card-body">
+                                <h6 class="text-muted text-uppercase small">Professionnels RH</h6>
+                                <h2 class="stat-value text-info" th:text="${rhCount}">0</h2>
+                                <div class="d-flex align-items-center">
+                                    <div class="progress flex-grow-1 me-2">
+                                        <div class="progress-bar bg-info"
+                                             th:style="'width:' + ${totalUsers > 0 ? (rhCount/totalUsers)*100 : 0} + '%'"></div>
+                                    </div>
+                                    <span th:text="${totalUsers > 0 ? #numbers.formatDecimal((rhCount/totalUsers)*100, 1, 2) : 0} + '%'"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section Graphiques -->
+        <div class="card mb-4">
+            <div class="card-header bg-white">
+                <h5 class="mb-0">
+                    <i class="bi bi-bar-chart-fill me-2 text-primary"></i>Statistiques avancées
+                </h5>
+            </div>
+            <div class="card-body">
+                <div class="row g-4">
+                    <!-- Graphique 1: Offres par mois -->
+                    <div class="col-lg-6">
+                        <div class="card h-100">
+                            <div class="card-body">
+                                <h6 class="card-title">
+                                    <i class="bi bi-calendar-month me-2 text-primary"></i>Offres par mois
+                                </h6>
+                                <canvas id="offersChart" height="250"></canvas>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Graphique 2: Répartition des utilisateurs -->
+                    <div class="col-lg-6">
+                        <div class="card h-100">
+                            <div class="card-body">
+                                <h6 class="card-title">
+                                    <i class="bi bi-people-fill me-2 text-primary"></i>Répartition des utilisateurs
+                                </h6>
+                                <canvas id="usersChart" height="250"></canvas>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
+<!-- Script pour animations -->
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Animation des cartes au scroll
+        const cards = document.querySelectorAll('.stat-card');
+        cards.forEach((card, index) => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(20px)';
+            card.style.transition = `all 0.5s ease ${index * 0.1}s`;
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            observer.observe(card);
+        });
+    });
+</script>
+<!-- Script pour Chart.js -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script th:inline="javascript">
+    /*<![CDATA[*/
+    document.addEventListener('DOMContentLoaded', function() {
+        // Graphique des offres par mois (Bar Chart)
+        const offersCtx = document.getElementById('offersChart').getContext('2d');
+        const offersData = {
+            labels: [[${#maps.keySet(offersByMonth)}]],
+            datasets: [{
+                label: 'Offres publiées',
+                data: [[${#maps.values(offersByMonth)}]],
+                backgroundColor: 'rgba(111, 66, 193, 0.7)',
+                borderColor: 'rgba(111, 66, 193, 1)',
+                borderWidth: 1
+            }]
+        };
+
+        new Chart(offersCtx, {
+            type: 'bar',
+            data: offersData,
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: { display: false },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                return context.parsed.y + ' offres';
+                            }
+                        }
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                            precision: 0
+                        }
+                    }
+                }
+            }
+        });
+
+        // Graphique de répartition des utilisateurs (Doughnut Chart)
+        const usersCtx = document.getElementById('usersChart').getContext('2d');
+        const usersData = {
+            labels: [[${#maps.keySet(usersByRole)}]],
+            datasets: [{
+                data: [[${#maps.values(usersByRole)}]],
+                backgroundColor: [
+                    'rgba(220, 53, 69, 0.7)',
+                    'rgba(40, 167, 69, 0.7)',
+                    'rgba(23, 162, 184, 0.7)'
+                ],
+                borderColor: [
+                    'rgba(220, 53, 69, 1)',
+                    'rgba(40, 167, 69, 1)',
+                    'rgba(23, 162, 184, 1)'
+                ],
+                borderWidth: 1
+            }]
+        };
+
+        new Chart(usersCtx, {
+            type: 'doughnut',
+            data: usersData,
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'right',
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                const total = context.dataset.data.reduce((a, b) => a + b, 0);
+                                const value = context.parsed;
+                                const percentage = Math.round((value / total) * 100);
+                                return `${context.label}: ${value} (${percentage}%)`;
+                            }
+                        }
+                    }
+                }
+            }
+        });
+    });
+    /*]]>*/
+</script>
 </body>
 </html>

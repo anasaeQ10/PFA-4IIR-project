@@ -29,10 +29,20 @@ public interface UserRepository extends JpaRepository<User, Long> {
             "LOWER(u.email) LIKE LOWER(CONCAT('%', :searchTerm, '%'))")
     List<User> findByFirstNameContainingOrLastNameContainingOrEmailContaining(
             @Param("searchTerm") String searchTerm, String term, String s);
-    long countByRole(String role);
+    //long countByRole(String role);
     long countByCreatedAtAfter(LocalDate date);
 
     @Query("SELECT COUNT(DISTINCT u) FROM User u WHERE u.lastLoginDate >= :date")
     long countActiveUsersSince(LocalDate date);
+    @Query("SELECT COUNT(u) FROM User u WHERE u.role = :role")
+    long countByRole(String role);
+    @Query("SELECT COUNT(u) FROM User u WHERE u.role = 'ADMIN'")
+    long countByAdminRole();
+
+    @Query("SELECT COUNT(u) FROM User u WHERE u.role = 'STUDENT'")
+    long countByStudentRole();
+
+    @Query("SELECT COUNT(u) FROM User u WHERE u.role = 'RH'")
+    long countByRhRole();
 
 }
