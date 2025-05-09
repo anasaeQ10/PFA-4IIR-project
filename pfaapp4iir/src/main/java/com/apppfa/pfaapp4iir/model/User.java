@@ -40,7 +40,7 @@ public class User {
 
     private String role = "ROLE_USER";
     private boolean enabled = true;
-    private LocalDateTime createdAt;
-    private LocalDateTime lastLoginDate;
+    private LocalDateTime createdAt = LocalDateTime.now();
+    private LocalDateTime lastLoginDate = LocalDateTime.now();
 
 }

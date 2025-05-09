@@ -4,6 +4,8 @@ package com.apppfa.pfaapp4iir.model;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.time.LocalDateTime;
+
 @Data
 @Entity
 @Table(name = "offres_emploi")
@@ -20,6 +22,7 @@ public class OffreEmploi {
     private String secteurActivite;
     private String description;
     private String lienPostuler;
+    private LocalDateTime datePostulation = LocalDateTime.now();
 
     @Column(name = "user_id")
     private Long userId; // ID de l'utilisateur (pas de relation JPA)
