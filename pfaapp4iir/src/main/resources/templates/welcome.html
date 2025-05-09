@@ -10,25 +10,32 @@
     <link rel="stylesheet" href="/css/welcome-style.css">
     <style>
         :root {
-            --primary-color: #0d6efd;
-            --secondary-color: #6c757d;
-            --accent-color: #ff6b6b;
-            --light-bg: #f8f9fa;
-            --dark-bg: #212529;
+            --primary-color: #2563eb;
+            --primary-hover: #1d4ed8;
+            --secondary-color: #64748b;
+            --accent-color: #f43f5e;
+            --light-bg: #f8fafc;
+            --dark-bg: #0f172a;
+            --card-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --card-shadow-hover: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
             line-height: 1.6;
+            color: #334155;
+            background-color: var(--light-bg);
         }
 
+        /* Hero Section */
         .hero-section {
-            background: linear-gradient(135deg, var(--primary-color), #4a00e0);
+            background: linear-gradient(135deg, var(--primary-color), #4f46e5);
             color: white;
-            padding: 6rem 0;
+            padding: 8rem 0 6rem;
             text-align: center;
             position: relative;
             overflow: hidden;
+            clip-path: ellipse(100% 100% at 50% 0%);
         }
 
         .hero-section::before {
@@ -42,72 +49,159 @@
         }
 
         .hero-title {
-            font-weight: 700;
+            font-weight: 800;
             margin-bottom: 1rem;
             text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            font-size: 3.5rem;
+            line-height: 1.2;
         }
 
         .hero-subtitle {
-            font-weight: 300;
+            font-weight: 400;
             margin-bottom: 2rem;
             opacity: 0.9;
+            font-size: 1.25rem;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
         }
 
         .btn-hero {
-            padding: 0.75rem 2rem;
+            padding: 0.875rem 2.5rem;
             border-radius: 50px;
             font-weight: 600;
             margin: 0.5rem;
             transition: all 0.3s ease;
+            font-size: 1rem;
+            letter-spacing: 0.5px;
         }
 
         .btn-hero-primary {
             background-color: white;
             color: var(--primary-color);
             border: 2px solid white;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
 
         .btn-hero-primary:hover {
             background-color: transparent;
             color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
         }
 
         .btn-hero-outline {
             background-color: transparent;
             color: white;
-            border: 2px solid white;
+            border: 2px solid rgba(255, 255, 255, 0.5);
         }
 
         .btn-hero-outline:hover {
             background-color: white;
             color: var(--primary-color);
+            border-color: white;
+            transform: translateY(-2px);
+        }
+
+        /* Features Section */
+        .features-section {
+            padding: 6rem 0;
+            background-color: white;
+        }
+
+        .feature-card {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            height: 100%;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--card-shadow-hover);
+        }
+
+        .feature-icon {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            margin-bottom: 1.5rem;
+            background: rgba(37, 99, 235, 0.1);
+            width: 80px;
+            height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+        }
+
+        .feature-title {
+            font-weight: 700;
+            margin-bottom: 1rem;
+            font-size: 1.25rem;
+            color: var(--dark-bg);
+        }
+
+        .feature-text {
+            color: var(--secondary-color);
+            font-size: 1rem;
+        }
+
+        /* Jobs Section */
+        .jobs-section {
+            padding: 6rem 0;
+            background-color: var(--light-bg);
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
         }
 
         .section-title {
+            font-weight: 800;
+            color: var(--dark-bg);
+            font-size: 2.25rem;
+            margin-bottom: 1rem;
             position: relative;
             display: inline-block;
-            margin-bottom: 2rem;
-            font-weight: 700;
         }
 
         .section-title::after {
             content: '';
             position: absolute;
             bottom: -10px;
-            left: 0;
-            width: 50px;
-            height: 3px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
             background-color: var(--primary-color);
+            border-radius: 2px;
+        }
+
+        .section-subtitle {
+            color: var(--secondary-color);
+            font-size: 1.125rem;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
         }
 
         .job-card {
-            border: none;
-            border-radius: 10px;
-            margin-bottom: 1.5rem;
-            transition: all 0.3s ease;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            background: white;
+            border-radius: 12px;
             overflow: hidden;
+            transition: all 0.3s ease;
+            box-shadow: var(--card-shadow);
+            height: 100%;
+            border: none;
             position: relative;
+        }
+
+        .job-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--card-shadow-hover);
         }
 
         .job-card::before {
@@ -115,14 +209,13 @@
             position: absolute;
             top: 0;
             left: 0;
-            width: 5px;
+            width: 4px;
             height: 100%;
             background-color: var(--primary-color);
         }
 
-        .job-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        .job-card-body {
+            padding: 2rem;
         }
 
         .job-type {
@@ -131,67 +224,286 @@
             right: 20px;
             background-color: var(--primary-color);
             color: white;
-            padding: 0.25rem 0.75rem;
+            padding: 0.375rem 1rem;
             border-radius: 50px;
             font-size: 0.75rem;
             font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
 
         .job-title {
-            font-weight: 600;
+            font-weight: 700;
             color: var(--dark-bg);
-            margin-bottom: 0.5rem;
+            margin-bottom: 0.75rem;
+            font-size: 1.25rem;
         }
 
         .job-company {
             color: var(--primary-color);
-            font-weight: 500;
-            margin-bottom: 0.5rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
         }
 
-        .job-location, .job-date {
+        .job-company i {
+            margin-right: 0.5rem;
+        }
+
+        .job-meta {
+            display: flex;
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .job-meta-item {
+            display: flex;
+            align-items: center;
             color: var(--secondary-color);
-            font-size: 0.9rem;
+            font-size: 0.875rem;
+        }
+
+        .job-meta-item i {
+            margin-right: 0.5rem;
+            color: var(--primary-color);
         }
 
         .job-description {
             color: var(--secondary-color);
-            margin: 1rem 0;
+            margin-bottom: 2rem;
             display: -webkit-box;
-            -webkit-line-clamp: 2;
+            -webkit-line-clamp: 3;
             -webkit-box-orient: vertical;
             overflow: hidden;
         }
 
-        .features-section {
-            background-color: var(--light-bg);
-            padding: 4rem 0;
-        }
-
-        .feature-icon {
-            font-size: 2.5rem;
-            color: var(--primary-color);
-            margin-bottom: 1rem;
-        }
-
-        .feature-title {
+        .btn-apply {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            padding: 0.75rem 1.75rem;
             font-weight: 600;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+        }
+
+        .btn-apply:hover {
+            background-color: var(--primary-hover);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .btn-apply i {
+            margin-left: 0.5rem;
+            transition: transform 0.3s;
+        }
+
+        .btn-apply:hover i {
+            transform: translateX(3px);
+        }
+
+        /* Testimonials */
+        .testimonials-section {
+            padding: 6rem 0;
+            background-color: white;
+        }
+
+        .testimonial-card {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: var(--card-shadow);
+            transition: all 0.3s ease;
+            height: 100%;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .testimonial-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--card-shadow-hover);
+        }
+
+        .testimonial-text {
+            font-style: italic;
+            color: var(--secondary-color);
+            margin-bottom: 1.5rem;
+            position: relative;
+        }
+
+        .testimonial-text::before {
+            content: '"';
+            font-size: 4rem;
+            color: rgba(37, 99, 235, 0.1);
+            position: absolute;
+            top: -20px;
+            left: -15px;
+            font-family: Georgia, serif;
+            line-height: 1;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+        }
+
+        .testimonial-author-img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-right: 1rem;
+            border: 3px solid var(--primary-color);
+        }
+
+        .testimonial-author-name {
+            font-weight: 600;
+            color: var(--dark-bg);
+            margin-bottom: 0.25rem;
+        }
+
+        .testimonial-author-title {
+            color: var(--secondary-color);
+            font-size: 0.875rem;
+        }
+
+        /* Stats */
+        .stats-section {
+            padding: 4rem 0;
+            background-color: var(--primary-color);
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stats-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiPjxkZWZzPjxwYXR0ZXJuIGlkPSJwYXR0ZXJuIiB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHBhdHRlcm5Vbml0cz0idXNlclNwYWNlT25Vc2UiIHBhdHRlcm5UcmFuc2Zvcm09InJvdGF0ZSg0NSkiPjxyZWN0IHdpZHRoPSIyMCIgaGVpZ2h0PSIyMCIgZmlsbD0icmdiYSgyNTUsMjU1LDI1NSwwLjA1KSIvPjwvcGF0dGVybj48L2RlZnM+PHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0idXJsKCNwYXR0ZXJuKSIvPjwvc3ZnPg==');
+        }
+
+        .stat-item {
+            text-align: center;
+            padding: 1.5rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            line-height: 1;
+        }
+
+        .stat-label {
+            font-size: 1rem;
+            opacity: 0.9;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Newsletter */
+        .newsletter-section {
+            padding: 4rem 0;
+            background-color: var(--dark-bg);
+            color: white;
+        }
+
+        .newsletter-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            padding: 3rem;
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .newsletter-title {
+            font-weight: 700;
             margin-bottom: 1rem;
         }
 
-        .feature-text {
-            color: var(--secondary-color);
+        .newsletter-text {
+            opacity: 0.8;
+            margin-bottom: 2rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
         }
 
+        .newsletter-form {
+            display: flex;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .newsletter-input {
+            flex: 1;
+            padding: 0.875rem 1.25rem;
+            border: none;
+            border-radius: 50px 0 0 50px;
+            outline: none;
+            font-size: 1rem;
+        }
+
+        .newsletter-btn {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 0 50px 50px 0;
+            padding: 0 1.75rem;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .newsletter-btn:hover {
+            background-color: var(--primary-hover);
+        }
+
+        /* Footer */
         .footer {
             background-color: var(--dark-bg);
             color: white;
-            padding: 3rem 0;
+            padding: 4rem 0 2rem;
+        }
+
+        .footer-logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            display: inline-block;
+        }
+
+        .footer-about {
+            opacity: 0.8;
+            margin-bottom: 1.5rem;
+            line-height: 1.7;
         }
 
         .footer-title {
-            font-weight: 600;
+            font-weight: 700;
             margin-bottom: 1.5rem;
+            font-size: 1.125rem;
+            position: relative;
+            padding-bottom: 0.75rem;
+        }
+
+        .footer-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 40px;
+            height: 2px;
+            background-color: var(--primary-color);
         }
 
         .footer-links {
@@ -200,98 +512,153 @@
         }
 
         .footer-links li {
-            margin-bottom: 0.5rem;
+            margin-bottom: 0.75rem;
         }
 
         .footer-links a {
-            color: rgba(255,255,255,0.7);
+            color: rgba(255, 255, 255, 0.7);
             text-decoration: none;
-            transition: color 0.3s;
+            transition: all 0.3s;
+            display: inline-block;
         }
 
         .footer-links a:hover {
             color: white;
+            transform: translateX(5px);
         }
 
-        .social-icons a {
-            color: white;
-            font-size: 1.5rem;
-            margin-right: 1rem;
-            transition: color 0.3s;
-        }
-
-        .social-icons a:hover {
-            color: var(--primary-color);
-        }
-
-        .no-jobs {
-            background-color: var(--light-bg);
-            border-radius: 10px;
-            padding: 3rem;
+        .footer-links i {
+            margin-right: 0.5rem;
+            width: 20px;
             text-align: center;
         }
 
-        .no-jobs-icon {
-            font-size: 3rem;
-            color: var(--secondary-color);
-            margin-bottom: 1rem;
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.5rem;
         }
 
-        .search-bar {
-            background-color: white;
-            border-radius: 50px;
-            padding: 0.5rem;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-            margin-bottom: 3rem;
-        }
-
-        .search-input {
-            border: none;
-            outline: none;
-            padding: 0.75rem 1.5rem;
-            width: 100%;
-        }
-
-        .search-btn {
-            background-color: var(--primary-color);
+        .social-link {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
             color: white;
-            border: none;
-            border-radius: 50px;
-            padding: 0.75rem 2rem;
-            font-weight: 600;
-            transition: background-color 0.3s;
+            transition: all 0.3s;
         }
 
-        .search-btn:hover {
-            background-color: #0b5ed7;
+        .social-link:hover {
+            background: var(--primary-color);
+            transform: translateY(-3px);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 2rem;
+            margin-top: 3rem;
+            text-align: center;
+            opacity: 0.7;
+            font-size: 0.875rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 992px) {
+            .hero-title {
+                font-size: 2.75rem;
+            }
         }
 
         @media (max-width: 768px) {
             .hero-section {
-                padding: 4rem 0;
+                padding: 6rem 0 4rem;
+                clip-path: ellipse(150% 100% at 50% 0%);
             }
 
             .hero-title {
-                font-size: 2.5rem;
+                font-size: 2.25rem;
+            }
+
+            .hero-subtitle {
+                font-size: 1.125rem;
+            }
+
+            .section-title {
+                font-size: 1.75rem;
+            }
+
+            .newsletter-form {
+                flex-direction: column;
+            }
+
+            .newsletter-input {
+                border-radius: 50px;
+                margin-bottom: 1rem;
+            }
+
+            .newsletter-btn {
+                border-radius: 50px;
+                padding: 0.875rem;
             }
         }
-
     </style>
 </head>
 <body>
-<!-- Section Hero -->
-<section class="hero-section animate__animated animate__fadeIn">
+<!-- Navigation -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
     <div class="container">
-        <h1 class="hero-title display-3 animate__animated animate__fadeInDown">CAREER CENTER</h1>
-        <p class="hero-subtitle lead animate__animated animate__fadeInDown animate__delay-1s">HONORIS UNITED UNIVERSITIES</p>
+        <a class="navbar-brand fw-bold" href="#">
+            <i class="bi bi-briefcase me-2"></i> Career Center
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item">
+                    <a class="nav-link active" href="#">Accueil</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Offres</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Entreprises</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Événements</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Ressources</a>
+                </li>
+                <li class="nav-item ms-lg-3 mt-2 mt-lg-0">
+                    <a th:href="@{/login}" class="btn btn-outline-light">Connexion</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
 
-        <div class="mt-4 animate__animated animate__fadeInUp animate__delay-1s">
-            <a th:href="@{/login}" class="btn btn-hero btn-hero-primary">
-                <i class="bi bi-box-arrow-in-right"></i> S'identifier
-            </a>
-            <a th:href="@{/register}" class="btn btn-hero btn-hero-outline">
-                <i class="bi bi-person-plus"></i> Créer un compte
-            </a>
+<!-- Hero Section -->
+<section class="hero-section animate__animated animate__fadeIn">
+    <div class="container position-relative">
+        <div class="row justify-content-center">
+            <div class="col-lg-10 text-center">
+                <h1 class="hero-title animate__animated animate__fadeInDown">Trouvez votre emploi idéal</h1>
+                <p class="hero-subtitle animate__animated animate__fadeInDown animate__delay-1s">
+                    Le Career Center d'Honoris United Universities connecte les talents aux meilleures opportunités professionnelles
+                </p>
+                <div class="mt-4 animate__animated animate__fadeInUp animate__delay-1s">
+                    <a th:href="@{/register}" class="btn btn-hero btn-hero-primary me-2">
+                        <i class="bi bi-person-plus me-2"></i> Créer un compte
+                    </a>
+                    <a href="#jobs" class="btn btn-hero btn-hero-outline">
+                        <i class="bi bi-search me-2"></i> Explorer les offres
+                    </a>
+                </div>
+            </div>
         </div>
     </div>
 </section>
@@ -299,87 +666,184 @@
 <!-- Features Section -->
 <section class="features-section">
     <div class="container">
-        <div class="row text-center">
-            <div class="col-md-4 mb-4 animate__animated animate__fadeIn">
-                <div class="p-4">
-                    <i class="bi bi-search feature-icon"></i>
-                    <h3 class="feature-title">Trouvez votre emploi idéal</h3>
-                    <p class="feature-text">Accédez à des milliers d'offres d'emploi dans divers secteurs et localisations.</p>
+        <div class="row g-4">
+            <div class="col-md-4 animate__animated" data-animate="fadeInUp">
+                <div class="feature-card">
+                    <div class="feature-icon mx-auto">
+                        <i class="bi bi-search"></i>
+                    </div>
+                    <h3 class="feature-title text-center">Recherche intelligente</h3>
+                    <p class="feature-text text-center">
+                        Trouvez des offres qui correspondent à vos compétences et aspirations grâce à notre moteur de recherche avancé.
+                    </p>
                 </div>
             </div>
-            <div class="col-md-4 mb-4 animate__animated animate__fadeIn animate__delay-1s">
-                <div class="p-4">
-                    <i class="bi bi-briefcase feature-icon"></i>
-                    <h3 class="feature-title">Postulez facilement</h3>
-                    <p class="feature-text">Postulez en quelques clics et suivez l'état de vos candidatures.</p>
+            <div class="col-md-4 animate__animated" data-animate="fadeInUp" data-animate-delay="0.2s">
+                <div class="feature-card">
+                    <div class="feature-icon mx-auto">
+                        <i class="bi bi-briefcase"></i>
+                    </div>
+                    <h3 class="feature-title text-center">Candidature simplifiée</h3>
+                    <p class="feature-text text-center">
+                        Postulez en un clic et suivez l'état de vos candidatures depuis votre espace personnel.
+                    </p>
                 </div>
             </div>
-            <div class="col-md-4 mb-4 animate__animated animate__fadeIn animate__delay-2s">
-                <div class="p-4">
-                    <i class="bi bi-people feature-icon"></i>
-                    <h3 class="feature-title">Réseau professionnel</h3>
-                    <p class="feature-text">Connectez-vous avec des employeurs et des anciens élèves de votre université.</p>
+            <div class="col-md-4 animate__animated" data-animate="fadeInUp" data-animate-delay="0.4s">
+                <div class="feature-card">
+                    <div class="feature-icon mx-auto">
+                        <i class="bi bi-people"></i>
+                    </div>
+                    <h3 class="feature-title text-center">Réseau professionnel</h3>
+                    <p class="feature-text text-center">
+                        Connectez-vous avec des employeurs et des alumni pour développer votre réseau professionnel.
+                    </p>
                 </div>
             </div>
         </div>
     </div>
 </section>
 
-<!-- Offres d'emploi -->
-<section class="py-5">
+<!-- Jobs Section -->
+<section id="jobs" class="jobs-section">
     <div class="container">
-        <h2 class="section-title animate__animated animate__fadeIn">Offres d'emplois récentes</h2>
+        <div class="section-header animate__animated" data-animate="fadeInUp">
+            <h2 class="section-title">Offres récentes</h2>
+            <p class="section-subtitle">Découvrez les dernières opportunités publiées par nos partenaires</p>
+        </div>
 
-        <!-- Barre de recherche -->
-        <div class="row animate__animated animate__fadeIn">
-            <div class="col-md-8 mx-auto">
-                <div class="search-bar">
-                    <div class="input-group">
-                        <input type="text" class="search-input" placeholder="Rechercher un emploi, une entreprise...">
-                        <button class="search-btn" type="button">
-                            <i class="bi bi-search"></i> Rechercher
-                        </button>
+        <div class="row g-4">
+            <div th:each="offer : ${offers}" class="col-lg-6 animate__animated" data-animate="fadeInUp">
+                <div class="job-card">
+                    <div class="job-card-body">
+                        <span class="job-type" th:text="${offer.typeEmploi}">CDI</span>
+                        <h3 class="job-title" th:text="${offer.titre}">Développeur Full Stack</h3>
+                        <p class="job-company">
+                            <i class="bi bi-building"></i>
+                            <span th:text="${offer.nomSociete}">Nom de l'entreprise</span>
+                        </p>
+                        <div class="job-meta">
+                            <div class="job-meta-item">
+                                <i class="bi bi-briefcase"></i>
+                                <span th:text="${offer.fonctionPoste}">Fonction</span>
+                            </div>
+                            <div class="job-meta-item">
+                                <i class="bi bi-geo-alt"></i>
+                                <span th:text="${offer.secteurActivite}">Secteur</span>
+                            </div>
+                        </div>
+                        <p class="job-description" th:text="${offer.description}">
+                            Description de l'offre avec les principales responsabilités et compétences requises...
+                        </p>
+                        <a th:href="@{/login}" class="btn btn-apply">
+                            Postuler <i class="bi bi-arrow-right"></i>
+                        </a>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- Liste des offres -->
-        <div th:each="offer : ${offers}" class="card job-card animate__animated animate__fadeInUp">
-            <div class="card-body p-4">
-                <span class="job-type" th:text="${offer.type}">CDI</span>
-                <h5 class="job-title" th:text="${offer.title}">Titre de l'offre</h5>
-                <h6 class="job-company" th:text="${offer.company}">Entreprise</h6>
-                <div class="d-flex justify-content-between mb-2">
-                    <p class="job-location mb-0">
-                        <i class="bi bi-geo-alt"></i>
-                        <span th:text="${offer.location}">Localisation</span>
-                    </p>
-                    <p class="job-date mb-0">
-                        <i class="bi bi-clock"></i>
-                        <span th:text="${#dates.format(offer.date, 'dd/MM/yyyy')}">01/01/2023</span>
-                    </p>
-                </div>
-                <p class="job-description" th:text="${offer.description}">Description courte de l'offre d'emploi qui donne un aperçu des principales responsabilités et exigences...</p>
-                <a href="#" class="btn btn-outline-primary">Voir détails</a>
+        <div class="text-center mt-5 animate__animated" data-animate="fadeInUp">
+            <a th:href="@{/offres/liste}" class="btn btn-outline-primary px-4">
+                Voir toutes les offres <i class="bi bi-arrow-right ms-2"></i>
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- Stats Section -->
+<section class="stats-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-6 col-md-3 stat-item">
+                <div class="stat-number">500+</div>
+                <div class="stat-label">Entreprises</div>
+            </div>
+            <div class="col-6 col-md-3 stat-item">
+                <div class="stat-number">5,000+</div>
+                <div class="stat-label">Offres</div>
+            </div>
+            <div class="col-6 col-md-3 stat-item">
+                <div class="stat-number">20,000+</div>
+                <div class="stat-label">Étudiants</div>
+            </div>
+            <div class="col-6 col-md-3 stat-item">
+                <div class="stat-number">85%</div>
+                <div class="stat-label">Taux de placement</div>
             </div>
         </div>
+    </div>
+</section>
 
-        <!-- Message si pas d'offres -->
-        <div th:if="${offers == null or offers.empty}" class="no-jobs animate__animated animate__fadeIn">
-            <i class="bi bi-briefcase no-jobs-icon"></i>
-            <h4>Aucune offre disponible pour le moment</h4>
-            <p class="text-muted">Revenez plus tard ou inscrivez-vous pour être alerté des nouvelles offres</p>
-            <a th:href="@{/register}" class="btn btn-primary mt-3">
-                <i class="bi bi-bell"></i> S'inscrire aux alertes
-            </a>
+<!-- Testimonials Section -->
+<section class="testimonials-section">
+    <div class="container">
+        <div class="section-header animate__animated" data-animate="fadeInUp">
+            <h2 class="section-title">Témoignages</h2>
+            <p class="section-subtitle">Ce que disent nos étudiants et partenaires</p>
         </div>
 
-        <!-- Bouton pour voir plus d'offres -->
-        <div class="text-center mt-4 animate__animated animate__fadeIn">
-            <a href="#" class="btn btn-outline-primary">
-                <i class="bi bi-arrow-down"></i> Voir plus d'offres
-            </a>
+        <div class="row g-4">
+            <div class="col-md-4 animate__animated" data-animate="fadeInUp">
+                <div class="testimonial-card">
+                    <div class="testimonial-text">
+                        Grâce au Career Center, j'ai trouvé un stage dans une entreprise leader de mon secteur. L'accompagnement personnalisé a fait toute la différence !
+                    </div>
+                    <div class="testimonial-author">
+                        <img src="https://randomuser.me/api/portraits/women/32.jpg" alt="Sarah K." class="testimonial-author-img">
+                        <div>
+                            <div class="testimonial-author-name">Sarah K.</div>
+                            <div class="testimonial-author-title">Étudiante en Informatique</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 animate__animated" data-animate="fadeInUp" data-animate-delay="0.2s">
+                <div class="testimonial-card">
+                    <div class="testimonial-text">
+                        Nous recrutons régulièrement via le Career Center. La qualité des profils et le sérieux de l'équipe en font un partenaire privilégié.
+                    </div>
+                    <div class="testimonial-author">
+                        <img src="https://randomuser.me/api/portraits/men/41.jpg" alt="Mohamed L." class="testimonial-author-img">
+                        <div>
+                            <div class="testimonial-author-name">Mohamed L.</div>
+                            <div class="testimonial-author-title">DRH, TechSolutions</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 animate__animated" data-animate="fadeInUp" data-animate-delay="0.4s">
+                <div class="testimonial-card">
+                    <div class="testimonial-text">
+                        Le réseau alumni m'a permis de trouver un mentor qui m'a guidé dans mes premiers pas professionnels. Une vraie valeur ajoutée !
+                    </div>
+                    <div class="testimonial-author">
+                        <img src="https://randomuser.me/api/portraits/women/68.jpg" alt="Amina S." class="testimonial-author-img">
+                        <div>
+                            <div class="testimonial-author-name">Amina S.</div>
+                            <div class="testimonial-author-title">Diplômée 2022</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Newsletter Section -->
+<section class="newsletter-section">
+    <div class="container">
+        <div class="newsletter-card animate__animated" data-animate="fadeInUp">
+            <h3 class="newsletter-title">Restez informé</h3>
+            <p class="newsletter-text">
+                Abonnez-vous à notre newsletter pour recevoir les dernières offres d'emploi, des conseils carrière et des invitations à nos événements.
+            </p>
+            <form class="newsletter-form">
+                <input type="email" class="newsletter-input" placeholder="Votre email" required>
+                <button type="submit" class="newsletter-btn">
+                    S'abonner <i class="bi bi-arrow-right"></i>
+                </button>
+            </form>
         </div>
     </div>
 </section>
@@ -388,53 +852,51 @@
 <footer class="footer">
     <div class="container">
         <div class="row">
-            <div class="col-md-4 mb-4">
-                <h5 class="footer-title">Career Center</h5>
-                <p>Le portail d'emploi des universités Honoris United Universities. Connectons les talents aux opportunités.</p>
-                <div class="social-icons mt-3">
-                    <a href="#"><i class="bi bi-facebook"></i></a>
-                    <a href="#"><i class="bi bi-twitter"></i></a>
-                    <a href="#"><i class="bi bi-linkedin"></i></a>
-                    <a href="#"><i class="bi bi-instagram"></i></a>
+            <div class="col-lg-4 mb-5 mb-lg-0">
+                <a href="#" class="footer-logo">
+                    <i class="bi bi-briefcase me-2"></i> Career Center
+                </a>
+                <p class="footer-about">
+                    Le portail d'emploi des universités Honoris United Universities. Connectons les talents aux opportunités professionnelles.
+                </p>
+                <div class="social-links">
+                    <a href="#" class="social-link"><i class="bi bi-facebook"></i></a>
+                    <a href="#" class="social-link"><i class="bi bi-twitter"></i></a>
+                    <a href="#" class="social-link"><i class="bi bi-linkedin"></i></a>
+                    <a href="#" class="social-link"><i class="bi bi-instagram"></i></a>
                 </div>
             </div>
-            <div class="col-md-2 mb-4">
-                <h5 class="footer-title">Liens rapides</h5>
+            <div class="col-6 col-md-3 col-lg-2 mb-4 mb-md-0">
+                <h4 class="footer-title">Navigation</h4>
                 <ul class="footer-links">
-                    <li><a href="#">Accueil</a></li>
-                    <li><a href="#">Offres d'emploi</a></li>
-                    <li><a href="#">Entreprises</a></li>
-                    <li><a href="#">Événements</a></li>
-                    <li><a href="#">Ressources</a></li>
+                    <li><a href="#"><i class="bi bi-chevron-right"></i> Accueil</a></li>
+                    <li><a href="#"><i class="bi bi-chevron-right"></i> Offres</a></li>
+                    <li><a href="#"><i class="bi bi-chevron-right"></i> Entreprises</a></li>
+                    <li><a href="#"><i class="bi bi-chevron-right"></i> Événements</a></li>
+                    <li><a href="#"><i class="bi bi-chevron-right"></i> Ressources</a></li>
                 </ul>
             </div>
-            <div class="col-md-3 mb-4">
-                <h5 class="footer-title">Pour les candidats</h5>
+            <div class="col-6 col-md-3 col-lg-2 mb-4 mb-md-0">
+                <h4 class="footer-title">Pour vous</h4>
                 <ul class="footer-links">
-                    <li><a href="#">Créer un compte</a></li>
-                    <li><a href="#">Postuler à un emploi</a></li>
-                    <li><a href="#">Conseils carrière</a></li>
-                    <li><a href="#">FAQ</a></li>
+                    <li><a href="#"><i class="bi bi-chevron-right"></i> Créer un compte</a></li>
+                    <li><a href="#"><i class="bi bi-chevron-right"></i> Se connecter</a></li>
+                    <li><a href="#"><i class="bi bi-chevron-right"></i> Conseils carrière</a></li>
+                    <li><a href="#"><i class="bi bi-chevron-right"></i> FAQ</a></li>
+                    <li><a href="#"><i class="bi bi-chevron-right"></i> Contact</a></li>
                 </ul>
             </div>
-            <div class="col-md-3 mb-4">
-                <h5 class="footer-title">Contact</h5>
+            <div class="col-md-6 col-lg-4">
+                <h4 class="footer-title">Contact</h4>
                 <ul class="footer-links">
                     <li><i class="bi bi-envelope"></i> contact@careercenter-huu.com</li>
-                    <li><i class="bi bi-telephone"></i> +123 456 7890</li>
-                    <li><i class="bi bi-geo-alt"></i> 123 Rue de l'Université, Tunis</li>
+                    <li><i class="bi bi-telephone"></i> +216 70 000 000</li>
+                    <li><i class="bi bi-geo-alt"></i> 123 Avenue de l'Université, Tunis</li>
                 </ul>
             </div>
         </div>
-        <hr class="mt-4 mb-4" style="border-color: rgba(255,255,255,0.1);">
-        <div class="row">
-            <div class="col-md-6 text-center text-md-start">
-                <p class="mb-0">&copy; 2023 Career Center - Honoris United Universities. Tous droits réservés.</p>
-            </div>
-            <div class="col-md-6 text-center text-md-end">
-                <a href="#" class="text-white me-3">Politique de confidentialité</a>
-                <a href="#" class="text-white">Conditions d'utilisation</a>
-            </div>
+        <div class="footer-bottom">
+            <p class="mb-0">&copy; 2023 Career Center - Honoris United Universities. Tous droits réservés.</p>
         </div>
     </div>
 </footer>
@@ -443,22 +905,40 @@
 <script>
     // Animation au scroll
     document.addEventListener('DOMContentLoaded', function() {
-        const animateElements = document.querySelectorAll('.animate__animated');
+        const animateElements = document.querySelectorAll('[data-animate]');
 
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
-                    const animation = entry.target.getAttribute('data-animate') || 'fadeInUp';
-                    entry.target.classList.add(animation);
+                    const animation = entry.target.getAttribute('data-animate');
+                    const delay = entry.target.getAttribute('data-animate-delay') || '0s';
+
+                    entry.target.style.animationDelay = delay;
+                    entry.target.classList.add('animate__animated', `animate__${animation}`);
                     observer.unobserve(entry.target);
                 }
             });
         }, {
-            threshold: 0.1
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
         });
 
         animateElements.forEach(element => {
             observer.observe(element);
+        });
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    window.scrollTo({
+                        top: target.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
         });
     });
 </script>
