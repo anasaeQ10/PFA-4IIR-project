@@ -6,13 +6,42 @@
     <title>Liste des offres d'emploi</title>
     <style>
         .offre-card {
-            transition: transform 0.2s;
+            transition: transform 0.2s, box-shadow 0.2s;
         }
+
         .offre-card:hover {
-            transform: translateY(-2px);
+            transform: translateY(-3px);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
         }
+
         .badge-emploi {
-            background-color: #6c757d;
+            background-color: #0d6efd;
+            color: white;
+            font-size: 0.75rem;
+            padding: 5px 8px;
+            border-radius: 10px;
+        }
+
+        .table th {
+            background-color: #f8f9fa;
+            font-weight: 600;
+        }
+
+        .table td, .table th {
+            vertical-align: middle;
+        }
+
+        .pagination .page-item.active .page-link {
+            background-color: #0d6efd;
+            border-color: #0d6efd;
+        }
+
+        .btn-sm i {
+            font-size: 1rem;
+        }
+
+        .btn-outline-secondary i {
+            color: #6c757d;
         }
     </style>
 </head>
@@ -21,8 +50,8 @@
     <div class="container-fluid py-4">
         <!-- En-tête -->
         <div class="d-flex justify-content-between align-items-center mb-4">
-            <h2 class="mb-0"><i class="bi bi-briefcase me-2"></i>Offres d'emploi</h2>
-            <a th:href="@{/offres/ajouter}" class="btn btn-primary">
+            <h2 class="mb-0 text-primary"><i class="bi bi-briefcase-fill me-2"></i>Offres d'emploi</h2>
+            <a th:href="@{/offres/ajouter}" class="btn btn-success">
                 <i class="bi bi-plus-circle me-1"></i> Nouvelle offre
             </a>
         </div>
@@ -34,11 +63,11 @@
                        name="search"
                        th:value="${param.search}"
                        class="form-control"
-                       placeholder="Rechercher une offre...">
-                <button class="btn btn-outline-primary" type="submit">
+                       placeholder="🔍 Rechercher une offre...">
+                <button class="btn btn-outline-primary" type="submit" title="Rechercher">
                     <i class="bi bi-search"></i>
                 </button>
-                <a th:href="@{/offres/liste}" class="btn btn-outline-secondary">
+                <a th:href="@{/offres/liste}" class="btn btn-outline-secondary" title="Réinitialiser">
                     <i class="bi bi-arrow-counterclockwise"></i>
                 </a>
             </div>
@@ -48,7 +77,7 @@
         <div class="card shadow-sm">
             <div class="card-body">
                 <div class="table-responsive">
-                    <table class="table table-hover">
+                    <table class="table table-hover align-middle">
                         <thead>
                         <tr>
                             <th>Titre</th>
@@ -56,14 +85,14 @@
                             <th>Type</th>
                             <th>Secteur</th>
                             <th>Posté par</th>
-                            <th>Actions</th>
+                            <th class="text-center">Actions</th>
                         </tr>
                         </thead>
                         <tbody>
                         <tr th:each="offre : ${offres}" class="offre-card">
                             <td>
                                 <strong th:text="${offre.titre}"></strong>
-                                <small class="d-block text-muted" th:text="${offre.fonctionPoste}"></small>
+                                <div class="text-muted small" th:text="${offre.fonctionPoste}"></div>
                             </td>
                             <td th:text="${offre.nomSociete}"></td>
                             <td>
@@ -71,23 +100,25 @@
                             </td>
                             <td th:text="${offre.secteurActivite}"></td>
                             <td>
-                                <small th:text="${usersMap.get(offre.id)}"></small>
+                                <small class="text-muted" th:text="${usersMap.get(offre.id)}"></small>
                             </td>
-                            <td>
-                                <div class="d-flex gap-2">
+                            <td class="text-center">
+                                <div class="d-flex justify-content-center gap-2">
+                                    <a th:href="@{/offres/details/{id}(id=${offre.id})}"
+                                       class="btn btn-sm btn-outline-info"
+                                       title="Détails">
+                                        <i class="bi bi-info-circle"></i>
+                                    </a>
                                     <a th:href="@{/offres/modifier/{id}(id=${offre.id})}"
-                                       class="btn btn-sm btn-outline-primary">
-                                        <i class="bi bi-pencil-square"></i>
+                                       class="btn btn-sm btn-outline-warning"
+                                       title="Modifier">
+                                        <i class="bi bi-pencil"></i>
                                     </a>
                                     <a th:href="@{/offres/supprimer/{id}(id=${offre.id})}"
                                        class="btn btn-sm btn-outline-danger"
-                                       onclick="return confirm('Êtes-vous sûr ?')">
-                                        <i class="bi bi-trash"></i>
-                                    </a>
-                                    <a th:href="@{/offres/details/{id}(id=${offre.id})}"
-                                       class="btn btn-sm btn-outline-info ms-2"
-                                       title="Détails">
-                                        <i class="bi bi-info-square"></i>
+                                       onclick="return confirm('Êtes-vous sûr ?')"
+                                       title="Supprimer">
+                                        <i class="bi bi-trash3"></i>
                                     </a>
                                 </div>
                             </td>
