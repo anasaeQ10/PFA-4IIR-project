@@ -44,5 +44,6 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     @Query("SELECT COUNT(u) FROM User u WHERE u.role = 'RH'")
     long countByRhRole();
+    boolean existsByFirstNameAndLastName(String firstName, String lastName);
 
 }

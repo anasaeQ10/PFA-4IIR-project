@@ -99,6 +99,10 @@ public class AuthController {
         if (userRepository.existsByEmail(user.getEmail())) {
             result.rejectValue("email", "error.user", "Cet email est déjà utilisé");
         }
+        // Vérification prénom + nom déjà existants
+        if (userRepository.existsByFirstNameAndLastName(user.getFirstName(), user.getLastName())) {
+            result.rejectValue("firstName", "error.user", "Ce prénom et nom sont déjà utilisés");
+        }
 
         if (result.hasErrors()) {
             return "auth/register";
