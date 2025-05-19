@@ -114,10 +114,10 @@
 
                 <!-- Boutons d'action -->
                 <div class="mt-4 d-flex justify-content-end">
-                    <a th:href="@{/offres/modifier/{id}(id=${offre.id})}" class="btn btn-primary me-2 btn-action">
+                    <a th:href="@{/offres/modifier/{id}(id=${offre.id})}" th:if="${currentUser.role == 'ROLE_ADMIN'||currentUser.role == 'ROLE_RH'}" class="btn btn-primary me-2 btn-action">
                         <i class="bi bi-pencil-square"></i> Modifier
                     </a>
-                    <a th:href="@{/offres/supprimer/{id}(id=${offre.id})}" class="btn btn-danger btn-action"
+                    <a th:href="@{/offres/supprimer/{id}(id=${offre.id})}" th:if="${currentUser.role == 'ROLE_ADMIN'||currentUser.role == 'ROLE_RH'}" class="btn btn-danger btn-action"
                        onclick="return confirm('Êtes-vous sûr de vouloir supprimer cette offre ?')">
                         <i class="bi bi-trash"></i> Supprimer
                     </a>

@@ -25,8 +25,6 @@ public class SecurityConfig {
                         .requestMatchers("/", "/login", "/register").permitAll()
                         .requestMatchers("/dashboard").hasRole("ADMIN")
                         .requestMatchers("/admin/stats").hasRole("ADMIN")
-                        .requestMatchers("/offres/ajouter").hasRole("ADMIN")
-                        .requestMatchers("/offres/ajouter").hasRole("RH")
                         .anyRequest().authenticated()
                 )
 

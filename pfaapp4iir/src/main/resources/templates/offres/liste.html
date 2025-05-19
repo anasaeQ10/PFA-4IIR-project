@@ -51,7 +51,7 @@
         <!-- En-tête -->
         <div class="d-flex justify-content-between align-items-center mb-4">
             <h2 class="mb-0 text-primary"><i class="bi bi-briefcase-fill me-2"></i>Offres d'emploi</h2>
-            <a th:href="@{/offres/ajouter}" class="btn btn-success">
+            <a th:href="@{/offres/ajouter}" th:if="${currentUser.role == 'ROLE_ADMIN'||currentUser.role == 'ROLE_RH'}" class="btn btn-success">
                 <i class="bi bi-plus-circle me-1"></i> Nouvelle offre
             </a>
         </div>
@@ -111,11 +111,13 @@
                                     </a>
                                     <a th:href="@{/offres/modifier/{id}(id=${offre.id})}"
                                        class="btn btn-sm btn-outline-warning"
+                                       th:if="${currentUser.role == 'ROLE_ADMIN'||currentUser.role == 'ROLE_RH'}"
                                        title="Modifier">
                                         <i class="bi bi-pencil"></i>
                                     </a>
                                     <a th:href="@{/offres/supprimer/{id}(id=${offre.id})}"
                                        class="btn btn-sm btn-outline-danger"
+                                       th:if="${currentUser.role == 'ROLE_ADMIN'||currentUser.role == 'ROLE_RH'}"
                                        onclick="return confirm('Êtes-vous sûr ?')"
                                        title="Supprimer">
                                         <i class="bi bi-trash3"></i>
