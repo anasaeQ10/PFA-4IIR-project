@@ -10,36 +10,35 @@
 <body style="background-color: #f8f9fa; padding-top: 56px;">
 
 <div layout:fragment="content">
-    <div class="container-fluid py-4">
+    <div class="container-fluid d-flex justify-content-center align-items-center"
+         style="min-height: 100vh; padding: 30px;">
 
-<!-- Main Content -->
-<div class="container" style="margin-left: 270px; padding-top: 30px;">
-    <div class="card shadow-lg" style="max-width: 600px; margin: auto;">
-        <div class="card-header bg-danger text-white d-flex align-items-center">
-            <i class="bi bi-exclamation-triangle-fill me-2" style="font-size: 1.5rem;"></i>
-            <h4 class="mb-0">Confirmer la suppression</h4>
-        </div>
-        <div class="card-body">
-            <p class="lead mb-3">Êtes-vous sûr de vouloir supprimer cet utilisateur ?</p>
-            <div class="bg-light border rounded p-3 mb-4">
-                <h5 class="mb-1" th:text="${user.firstName + ' ' + user.lastName}">Nom complet</h5>
-                <p class="text-muted mb-0" th:text="${user.email}">email@example.com</p>
+        <div class="card shadow-lg" style="max-width: 600px; width: 100%;">
+            <div class="card-header bg-danger text-white d-flex align-items-center">
+                <i class="bi bi-exclamation-triangle-fill me-2" style="font-size: 1.5rem;"></i>
+                <h4 class="mb-0">Confirmer la suppression</h4>
             </div>
-            <form th:action="@{/admin/delete-user/{id}(id=${user.id})}" method="post">
-                <input type="hidden" name="_method" value="DELETE"/>
-                <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
-                <div class="d-flex justify-content-between">
-                    <a th:href="@{/dashboard}" class="btn btn-outline-secondary">
-                        <i class="bi bi-arrow-left-circle"></i> Annuler
-                    </a>
-                    <button type="submit" class="btn btn-danger">
-                        <i class="bi bi-trash3-fill"></i> Supprimer définitivement
-                    </button>
+            <div class="card-body">
+                <p class="lead mb-3">Êtes-vous sûr de vouloir supprimer cet utilisateur ?</p>
+                <div class="bg-light border rounded p-3 mb-4">
+                    <h5 class="mb-1" th:text="${user.firstName + ' ' + user.lastName}">Nom complet</h5>
+                    <p class="text-muted mb-0" th:text="${user.email}">email@example.com</p>
                 </div>
-            </form>
+                <form th:action="@{/admin/delete-user/{id}(id=${user.id})}" method="post">
+                    <input type="hidden" name="_method" value="DELETE"/>
+                    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+                    <div class="d-flex justify-content-between">
+                        <a th:href="@{/dashboard}" class="btn btn-outline-secondary">
+                            <i class="bi bi-arrow-left-circle"></i> Annuler
+                        </a>
+                        <button type="submit" class="btn btn-danger">
+                            <i class="bi bi-trash3-fill"></i> Supprimer définitivement
+                        </button>
+                    </div>
+                </form>
+            </div>
         </div>
-    </div>
-</div>
+
     </div>
 </div>
 
