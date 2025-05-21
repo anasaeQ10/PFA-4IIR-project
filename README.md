@@ -42,7 +42,7 @@ Ce projet est une application web développée dans le cadre du Projet de Fin d'
 
 - Java 17+
 - Maven
-- MySQL
+- MySQL (MAMP,XAMP,...)
 
 ### Étapes
 
