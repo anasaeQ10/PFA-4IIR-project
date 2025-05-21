@@ -52,22 +52,22 @@ pfaapp4iir/
    cd PFA-4IIR-project/pfaapp4iir
 2. Configurer la base de données dans "src/main/resources/application.properties" :
 
-
-spring.datasource.url=jdbc:mysql://localhost:3306/nom_de_la_base
-spring.datasource.username=utilisateur
-spring.datasource.password=mot_de_passe
+   ```bash
+   spring.datasource.url=jdbc:mysql://localhost:3306/nom_de_la_base
+   spring.datasource.username=utilisateur
+   spring.datasource.password=mot_de_passe
 
 3. Lancer l’application :
-
-./mvnw spring-boot:run
+   ```bash
+   ./mvnw spring-boot:run
 
 4. Accéder à l'application :
-   
-http://localhost:8080
+   ```bash 
+   http://localhost:8080
 
 
 
-📸 Captures d'écran
+##📸 Captures d'écran
 
 <img width="1440" alt="Screenshot 2025-05-21 at 20 01 51" src="https://github.com/user-attachments/assets/93bd5d84-dd3d-4113-bed0-377093782762" />
 
@@ -76,7 +76,8 @@ http://localhost:8080
 <img width="1440" alt="Screenshot 2025-05-21 at 20 03 26" src="https://github.com/user-attachments/assets/04520d9e-527a-4c44-9cc4-78ec1c6e65c1" />
 
 
-👨‍💻 Auteurs
+##👨‍💻 Auteurs
+
 Anas AIT EL QADI 
 Mohamed Taha IZMAR
 
