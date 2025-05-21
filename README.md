@@ -17,7 +17,7 @@ Ce projet est une application web développée dans le cadre du Projet de Fin d'
 - pfaapp4iir/
 - ├── controller/ # Contrôleurs Spring MVC
 - ├── model/ # Entités JPA
-- ├── repository/ # Interfaces JPA
+- ├── repository/ # Interfaces JPA (DAO)
 - ├── service/ # Services métier
 - ├── config/ # Configuration Spring (sécurité, MVC)
 - ├── resources/
