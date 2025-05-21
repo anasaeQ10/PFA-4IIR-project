@@ -29,12 +29,12 @@ Ce projet est une application web développée dans le cadre du Projet de Fin d'
 
 ## ✅ Fonctionnalités
 
-- Authentification et inscription des utilisateurs
-- Tableau de bord personnalisé
-- Gestion des documents (ajout, suppression, visualisation)
-- Affichage et gestion des offres d’emploi
-- Visualisation des statistiques
-- Design responsive
+- 🔐 Authentification et inscription des utilisateurs
+- 📂 Gestion des documents : ajout, suppression
+- 💼 Gestion des offres d’emploi
+- 📊 Statistiques interactives
+- 🖥️ Tableau de bord dynamique
+- 🎨 Interface claire et responsive
 
 ## ▶️ Lancement du projet
 
