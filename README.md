@@ -67,7 +67,7 @@ pfaapp4iir/
 
 
 
-##📸 Captures d'écran
+## 📸 Captures d'écran
 
 <img width="1440" alt="Screenshot 2025-05-21 at 20 01 51" src="https://github.com/user-attachments/assets/93bd5d84-dd3d-4113-bed0-377093782762" />
 
@@ -76,7 +76,7 @@ pfaapp4iir/
 <img width="1440" alt="Screenshot 2025-05-21 at 20 03 26" src="https://github.com/user-attachments/assets/04520d9e-527a-4c44-9cc4-78ec1c6e65c1" />
 
 
-##👨‍💻 Auteurs
+## 👨‍💻 Auteurs
 
 Anas AIT EL QADI 
 Mohamed Taha IZMAR
