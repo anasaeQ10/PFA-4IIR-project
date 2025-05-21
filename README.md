@@ -14,16 +14,16 @@ Ce projet est une application web développée dans le cadre du Projet de Fin d'
 
 ## 📁 Structure du projet
 
-pfaapp4iir/
-├── controller/ # Contrôleurs Spring MVC
-├── model/ # Entités JPA
-├── repository/ # Interfaces JPA
-├── service/ # Services métier
-├── config/ # Configuration Spring (sécurité, MVC)
-├── resources/
-│ ├── templates/ # Fichiers HTML Thymeleaf
-│ └── static/css/ # Feuilles de style
-└── application.properties
+- pfaapp4iir/
+- ├── controller/ # Contrôleurs Spring MVC
+- ├── model/ # Entités JPA
+- ├── repository/ # Interfaces JPA
+- ├── service/ # Services métier
+- ├── config/ # Configuration Spring (sécurité, MVC)
+- ├── resources/
+- │ ├── templates/ # Fichiers HTML Thymeleaf
+- │ └── static/css/ # Feuilles de style
+- └── application.properties
 
 
 
@@ -78,6 +78,6 @@ pfaapp4iir/
 
 ## 👨‍💻 Auteurs
 
-Anas AIT EL QADI 
-Mohamed Taha IZMAR
+- Anas AIT EL QADI 
+- Mohamed Taha IZMAR
 
