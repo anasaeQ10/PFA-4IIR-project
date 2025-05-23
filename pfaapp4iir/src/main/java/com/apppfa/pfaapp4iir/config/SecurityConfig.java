@@ -25,6 +25,10 @@ public class SecurityConfig {
                         .requestMatchers("/", "/login", "/register").permitAll()
                         .requestMatchers("/dashboard").hasRole("ADMIN")
                         .requestMatchers("/admin/stats").hasRole("ADMIN")
+                        .requestMatchers("/events/new").hasRole("ADMIN")
+                        .requestMatchers("/events/edit/{id}").hasRole("ADMIN")
+                        .requestMatchers("/events/delete/{id}").hasRole("ADMIN")
+
                         .anyRequest().authenticated()
                 )
 
