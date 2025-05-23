@@ -30,7 +30,7 @@
             <i class="bi bi-person-workspace me-2"></i> Offres d'emploi
         </a>
 
-        <a class="nav-link text-white mb-2 rounded" th:href="@{/documents/liste}">
+        <a class="nav-link text-white mb-2 rounded" th:if="${currentUser.role == 'ROLE_USER'}" th:href="@{/documents/liste}">
             <i class="bi bi-file-earmark-person me-2"></i> Mes documents
         </a>
 
