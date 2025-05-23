@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/base}">
+<head>
+    <title>Liste des Événements</title>
+    <meta charset="UTF-8" />
+    <style>
+        .event-card {
+            transition: transform 0.2s, box-shadow 0.2s;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .event-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .badge-event {
+            background-color: #6f42c1;
+            color: white;
+            font-size: 0.75rem;
+            padding: 5px 8px;
+            border-radius: 10px;
+        }
+
+        .event-image {
+            height: 180px;
+            object-fit: cover;
+            width: 100%;
+        }
+
+        .event-date {
+            background-color: #f8f9fa;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-weight: 500;
+        }
+
+        .btn-sm i {
+            font-size: 1rem;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 40px 20px;
+            background-color: #f8f9fa;
+            border-radius: 8px;
+        }
+
+        .empty-state i {
+            font-size: 3rem;
+            color: #6c757d;
+            margin-bottom: 15px;
+        }
+    </style>
+</head>
+<body>
+<div layout:fragment="content">
+    <div class="container-fluid py-4">
+        <!-- En-tête -->
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h2 class="mb-0 text-primary"><i class="bi bi-calendar-event me-2"></i>Événements</h2>
+            <a th:href="@{/events/new}" th:if="${currentUser.role == 'ROLE_ADMIN'||currentUser.role == 'ROLE_RH'}" class="btn btn-success">
+                <i class="bi bi-plus-circle me-1"></i> Ajouter un événement
+            </a>
+        </div>
+
+        <!-- Barre de recherche -->
+        <form th:action="@{/events}" method="get" class="mb-4">
+            <div class="input-group">
+                <input type="text"
+                       name="search"
+                       th:value="${param.search}"
+                       class="form-control"
+                       placeholder="🔍 Rechercher un événement...">
+                <button class="btn btn-outline-primary" type="submit" title="Rechercher">
+                    <i class="bi bi-search"></i>
+                </button>
+                <a th:href="@{/events}" class="btn btn-outline-secondary" title="Réinitialiser">
+                    <i class="bi bi-arrow-counterclockwise"></i>
+                </a>
+            </div>
+        </form>
+
+        <!-- Liste des événements -->
+        <div th:if="${#lists.isEmpty(events)}" class="empty-state">
+            <i class="bi bi-calendar-x"></i>
+            <h4>Aucun événement pour le moment</h4>
+            <p class="text-muted">Commencez par ajouter votre premier événement</p>
+            <a th:href="@{/events/new}" th:if="${currentUser.role == 'ROLE_ADMIN'||currentUser.role == 'ROLE_RH'}" class="btn btn-primary mt-3">
+                <i class="bi bi-plus-circle me-1"></i> Créer un événement
+            </a>
+        </div>
+
+        <div class="row g-4" th:unless="${#lists.isEmpty(events)}">
+            <div class="col-md-6 col-lg-4" th:each="event : ${events}">
+                <div class="card h-100 event-card">
+                    <img th:if="${event.image != null}"
+                         th:src="@{/events/image/{id}(id=${event.id})}"
+                         class="event-image card-img-top"
+                         alt="Image de l'événement">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between align-items-start mb-2">
+                            <h5 class="card-title mb-0" th:text="${event.title}"></h5>
+                            <span class="event-date" th:text="${event.date}"></span>
+                        </div>
+                    </div>
+                    <div class="card-footer bg-white border-top-0">
+                        <div class="d-flex justify-content-end gap-2">
+                            <a th:href="@{/events/details/{id}(id=${event.id})}"
+                               class="btn btn-sm btn-outline-info"
+                               title="Détails">
+                                <i class="bi bi-eye"></i>
+                            </a>
+
+                            <a th:href="@{/events/edit/{id}(id=${event.id})}"
+                               class="btn btn-sm btn-outline-primary"
+                               th:if="${currentUser.role == 'ROLE_ADMIN'||currentUser.role == 'ROLE_RH'}"
+                               title="Modifier">
+                                <i class="bi bi-pencil"></i>
+                            </a>
+                            <a th:href="@{/events/delete/{id}(id=${event.id})}"
+                               class="btn btn-sm btn-outline-danger"
+                               th:if="${currentUser.role == 'ROLE_ADMIN'||currentUser.role == 'ROLE_RH'}"
+                               onclick="return confirm('Supprimer cet événement ?')"
+                               title="Supprimer">
+                                <i class="bi bi-trash3"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Pagination -->
+        <div th:if="${totalPages > 1}" class="d-flex justify-content-center mt-4">
+            <nav>
+                <ul class="pagination">
+                    <li class="page-item" th:classappend="${currentPage == 1} ? 'disabled'">
+                        <a class="page-link" th:href="@{/events(page=${currentPage - 1})}">Précédent</a>
+                    </li>
+                    <li th:each="page : ${#numbers.sequence(1, totalPages)}"
+                        class="page-item" th:classappend="${page == currentPage} ? 'active'">
+                        <a class="page-link" th:href="@{/events(page=${page})}" th:text="${page}"></a>
+                    </li>
+                    <li class="page-item" th:classappend="${currentPage == totalPages} ? 'disabled'">
+                        <a class="page-link" th:href="@{/events(page=${currentPage + 1})}">Suivant</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/base}">
+<head>
+    <title>Détails de l'Événement</title>
+    <meta charset="UTF-8" />
+    <style>
+        .event-container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .event-header-image {
+            height: 350px;
+            object-fit: cover;
+            width: 100%;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .event-icon-placeholder {
+            height: 350px;
+            background-color: #f8f9fa;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 12px;
+            color: #6c757d;
+        }
+
+        .event-title {
+            font-weight: 700;
+            color: #2c3e50;
+            margin: 1.5rem 0;
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        .event-title:after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background: #6f42c1;
+        }
+
+        .event-description {
+            line-height: 1.8;
+            color: #495057;
+            font-size: 1.05rem;
+        }
+
+        .meta-card {
+            background: white;
+            border-radius: 10px;
+            padding: 1.5rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            border: 1px solid #e9ecef;
+        }
+
+        .meta-item {
+            margin-bottom: 1.2rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .meta-icon {
+            width: 36px;
+            height: 36px;
+            background: #f0e6ff;
+            color: #6f42c1;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 12px;
+            flex-shrink: 0;
+        }
+
+        .meta-label {
+            font-weight: 600;
+            color: #6f42c1;
+            font-size: 0.85rem;
+            margin-bottom: 2px;
+        }
+
+        .meta-value {
+            font-weight: 500;
+            color: #2c3e50;
+        }
+
+        .back-btn {
+            transition: all 0.2s;
+            margin-bottom: 1.5rem;
+            border-radius: 6px;
+        }
+
+        .back-btn:hover {
+            background: #f8f9fa;
+            transform: translateX(-3px);
+        }
+
+        @media (max-width: 768px) {
+            .event-header-image, .event-icon-placeholder {
+                height: 250px;
+            }
+        }
+    </style>
+</head>
+<body>
+<div layout:fragment="content">
+    <div class="container py-4 event-container">
+        <a th:href="@{/events}" class="btn btn-outline-secondary back-btn d-inline-flex align-items-center">
+            <i class="bi bi-arrow-left me-2"></i> Retour à la liste
+        </a>
+
+        <div class="row g-4">
+            <!-- Image principale -->
+            <div class="col-12">
+                <div class="event-header">
+                    <img th:if="${event.image != null}"
+                         th:src="@{/events/image/{id}(id=${event.id})}"
+                         class="event-header-image"
+                         alt="Image de l'événement">
+                    <div th:if="${event.image == null}" class="event-icon-placeholder">
+                        <i class="bi bi-calendar-event" style="font-size: 3rem;"></i>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Contenu principal -->
+            <div class="col-lg-8">
+                <h1 class="event-title" th:text="${event.title}"></h1>
+
+                <!-- Section Description améliorée -->
+                <div class="description-container">
+                    <h5 class="section-title">
+                        <i class="bi bi-card-text"></i> Description
+                    </h5>
+                    <div class="description-content" th:utext="${#strings.escapeXml(event.description)} ?: 'Aucune description disponible'">
+                        <!-- Le contenu sera inséré ici -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Métadonnées -->
+            <div class="col-lg-4">
+                <div class="meta-card">
+                    <div class="meta-item">
+                        <div class="meta-icon">
+                            <i class="bi bi-calendar"></i>
+                        </div>
+                        <div>
+                            <div class="meta-label">DATE</div>
+                            <div class="meta-value" th:text="${#temporals.format(event.date, 'dd MMMM yyyy')}"></div>
+                        </div>
+                    </div>
+
+                    <div class="meta-item" th:if="${event.lieu != null}">
+                        <div class="meta-icon">
+                            <i class="bi bi-geo-alt"></i>
+                        </div>
+                        <div>
+                            <div class="meta-label">LIEU</div>
+                            <div class="meta-value" th:text="${event.lieu}"></div>
+                        </div>
+                    </div>
+
+                    <div class="meta-item" th:if="${event.user != null}">
+                        <div class="meta-icon">
+                            <i class="bi bi-person"></i>
+                        </div>
+                        <div>
+                            <div class="meta-label">PUBLIÉ PAR</div>
+                            <div class="meta-value" th:text="${event.user.firstName} + ' ' + ${event.user.lastName}"></div>
+                            <small class="text-muted" th:text="${event.user.email}"></small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Script pour améliorer l'affichage des sauts de ligne -->
+    <script th:inline="javascript">
+        document.addEventListener('DOMContentLoaded', function() {
+            const descriptionContent = document.querySelector('.description-content');
+            if (descriptionContent) {
+                // Convertit les sauts de ligne en balises <br>
+                descriptionContent.innerHTML = descriptionContent.innerHTML.replace(/\n/g, '<br>');
+
+                // Ajoute des paragraphes pour les blocs de texte
+                descriptionContent.innerHTML = descriptionContent.innerHTML
+                    .replace(/(<br>\s*){2,}/g, '</p><p>')
+                    .replace(/^/, '<p>')
+                    .replace(/$/, '</p>');
+            }
+        });
+    </script>
+</div>
+</body>
+</html>

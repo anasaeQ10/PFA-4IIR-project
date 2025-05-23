@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/base}">
+<head>
+    <title>Modifier l'Événement</title>
+    <meta charset="UTF-8" />
+    <style>
+        .form-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 30px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+        }
+        .form-label {
+            font-weight: 600;
+            margin-bottom: 8px;
+            display: block;
+        }
+        .form-control {
+            border-radius: 5px;
+            padding: 10px 15px;
+            border: 1px solid #ced4da;
+            transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+        }
+        .form-control:focus {
+            border-color: #6f42c1;
+            box-shadow: 0 0 0 0.25rem rgba(111, 66, 193, 0.25);
+        }
+        .current-image {
+            border-radius: 8px;
+            border: 1px solid #dee2e6;
+            padding: 10px;
+            margin-top: 15px;
+        }
+        .action-buttons {
+            display: flex;
+            gap: 15px;
+            margin-top: 25px;
+        }
+    </style>
+</head>
+<body>
+<div layout:fragment="content">
+    <div class="container py-5">
+        <div class="form-container">
+            <h1 class="mb-4 text-primary"><i class="bi bi-pencil-square me-2"></i>Modifier l'Événement</h1>
+
+            <form th:action="@{/events/save}" th:object="${event}" method="post" enctype="multipart/form-data">
+                <input type="hidden" th:field="*{id}" />
+
+                <div class="mb-4">
+                    <label class="form-label">Titre</label>
+                    <input type="text" th:field="*{title}" class="form-control" required />
+                </div>
+
+                <div class="mb-4">
+                    <label class="form-label">Description</label>
+                    <textarea th:field="*{description}" class="form-control" rows="5" required></textarea>
+                </div>
+
+                <div class="mb-4">
+                    <label class="form-label">Date</label>
+                    <input type="date" th:field="*{date}" class="form-control" required />
+                </div>
+
+                <div class="mb-4">
+                    <label class="form-label">Lieu</label>
+                    <input type="text" th:field="*{lieu}" class="form-control" required />
+                </div>
+
+                <div class="mb-4">
+                    <label class="form-label">Image</label>
+                    <input type="file" name="imageFile" class="form-control" />
+                    <div th:if="${event.image != null}" class="current-image">
+                        <p class="text-muted mb-2">Image actuelle :</p>
+                        <img th:src="@{/events/image/{id}(id=${event.id})}" width="200" class="img-thumbnail"/>
+                    </div>
+                </div>
+
+                <div class="action-buttons">
+                    <button type="submit" class="btn btn-primary">
+                        <i class="bi bi-save me-1"></i> Mettre à jour
+                    </button>
+                    <a th:href="@{/events}" class="btn btn-outline-secondary">
+                        <i class="bi bi-arrow-left me-1"></i> Retour
+                    </a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>
