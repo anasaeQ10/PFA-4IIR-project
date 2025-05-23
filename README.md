@@ -35,6 +35,7 @@ Ce projet est une application web développée dans le cadre du Projet de Fin d'
 - 📊 Statistiques interactives
 - 🖥️ Tableau de bord dynamique
 - 🎨 Interface claire et responsive
+- 📅 Gestion des événements 
 
 ## ▶️ Lancement du projet
 
