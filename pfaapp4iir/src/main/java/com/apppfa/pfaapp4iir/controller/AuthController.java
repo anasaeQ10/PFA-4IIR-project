@@ -2,6 +2,7 @@ package com.apppfa.pfaapp4iir.controller;
 
 import com.apppfa.pfaapp4iir.model.User;
 import com.apppfa.pfaapp4iir.repository.UserRepository;
+import com.apppfa.pfaapp4iir.service.EmailService;
 import com.apppfa.pfaapp4iir.service.UserService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +26,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 @Controller
 public class AuthController {
 
+    @Autowired
+    private EmailService emailService;
     private final AuthenticationManager authenticationManager;
     private final UserService userService;
     private final PasswordEncoder passwordEncoder;
@@ -114,7 +117,9 @@ public class AuthController {
         user.setEnabled(true);
         userRepository.save(user);
 
-        // Ajout du message de succès
+        // envoi du mail de bienvenue
+        emailService.sendRegistrationEmail(user.getEmail(), user.getLastName(),user.getFirstName());
+        // message de succès
         redirectAttributes.addFlashAttribute("successMessage", "Utilisateur ajouté avec succès !");
 
         return "redirect:/login";
