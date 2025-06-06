@@ -74,7 +74,7 @@ Ce projet est une application web développée dans le cadre du Projet de Fin d'
 
 <img width="1440" alt="Screenshot 2025-05-21 at 20 02 57" src="https://github.com/user-attachments/assets/aaeaaabf-e159-40fa-90f9-5b888ac397f8" />
 
-
+<img width="1440" alt="Screenshot 2025-06-06 at 23 15 13" src="https://github.com/user-attachments/assets/ef80a1f1-379e-48ba-ae06-94dbf8617577" />
 <img width="1440" alt="Screenshot 2025-06-06 at 23 04 40" src="https://github.com/user-attachments/assets/c2c0466b-eb50-45a6-a30b-aa43c7cdb202" />
 <img width="1440" alt="Screenshot 2025-06-06 at 23 03 45" src="https://github.com/user-attachments/assets/71d8db61-f503-486b-a7a0-2efcca046a27" />
 <img width="1440" alt="Screenshot 2025-06-06 at 23 03 59" src="https://github.com/user-attachments/assets/ed15f4c7-4c53-4b58-832d-fe1800bafce9" />
