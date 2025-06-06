@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Map;
 
 @Controller
@@ -34,18 +35,15 @@ public class StatsController {
         long totalOffers = offreEmploiRepository.count();
         long newOffersLastWeek = offreEmploiRepository.countByDatePostulationAfter(
                 LocalDate.now().minusWeeks(1).atStartOfDay());
+
         // Données pour les graphiques
         Map<String, Long> offersByMonth = offreEmploiRepository.countOffersByMonth();
-        Map<String, Long> usersByRole = Map.of(
-                "ROLE_ADMIN", adminCount,
-                "ROLE_USER", studentCount,
-                "ROLE_RH", rhCount
-        );
 
-        model.addAttribute("offersByMonth", offersByMonth);
-        model.addAttribute("usersByRole", usersByRole);
+        // Préparation des données pour JavaScript
+        model.addAttribute("monthLabels", new ArrayList<>(offersByMonth.keySet()));
+        model.addAttribute("offerCounts", new ArrayList<>(offersByMonth.values()));
 
-        // Ajout au modèle
+        // Ajout des autres attributs au modèle
         model.addAttribute("totalUsers", totalUsers);
         model.addAttribute("adminCount", adminCount);
         model.addAttribute("studentCount", studentCount);

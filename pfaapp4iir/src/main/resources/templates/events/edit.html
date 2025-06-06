@@ -72,8 +72,8 @@
                 </div>
 
                 <div class="mb-4">
-                    <label class="form-label">Image</label>
-                    <input type="file" name="imageFile" class="form-control" />
+                    <label class="form-label">Image (.jpg uniquement)</label>
+                    <input type="file" name="imageFile" class="form-control" accept=".jpg,image/jpeg" />
                     <div th:if="${event.image != null}" class="current-image">
                         <p class="text-muted mb-2">Image actuelle :</p>
                         <img th:src="@{/events/image/{id}(id=${event.id})}" width="200" class="img-thumbnail"/>

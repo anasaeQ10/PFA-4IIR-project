@@ -61,13 +61,16 @@
             <div class="input-group">
                 <input type="text"
                        name="search"
-                       th:value="${param.search}"
+                       th:value="${searchTerm}"
                        class="form-control"
                        placeholder="🔍 Rechercher une offre...">
                 <button class="btn btn-outline-primary" type="submit" title="Rechercher">
                     <i class="bi bi-search"></i>
                 </button>
-                <a th:href="@{/offres/liste}" class="btn btn-outline-secondary" title="Réinitialiser">
+                <a th:href="@{/offres/liste}"
+                   th:if="${searchTerm != null and !searchTerm.isEmpty()}"
+                   class="btn btn-outline-secondary"
+                   title="Réinitialiser">
                     <i class="bi bi-arrow-counterclockwise"></i>
                 </a>
             </div>
@@ -150,5 +153,15 @@
         </div>
     </div>
 </div>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Focus sur le champ de recherche au chargement si terme existant
+        const searchInput = document.querySelector('input[name="search"]');
+        if(searchInput && searchInput.value) {
+            searchInput.focus();
+            searchInput.select();
+        }
+    });
+</script>
 </body>
 </html>

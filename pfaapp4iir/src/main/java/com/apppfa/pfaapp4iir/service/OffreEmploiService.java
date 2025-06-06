@@ -68,4 +68,10 @@ public OffreEmploi saveOffre(OffreEmploi offre) {
         offreEmploiRepository.deleteById(id);
     }
 
+    public List<OffreEmploi> searchOffres(String searchTerm) {
+        return offreEmploiRepository.search(
+                searchTerm.toLowerCase() // Recherche insensible à la casse
+        );
+    }
+
 }

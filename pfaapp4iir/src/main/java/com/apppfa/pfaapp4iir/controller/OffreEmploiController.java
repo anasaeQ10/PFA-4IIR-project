@@ -86,20 +86,30 @@ public class OffreEmploiController {
         }
     }
     @GetMapping("/liste")
-    public String listOffres(Model model) {
+    public String listOffres(Model model,@RequestParam(value = "search", required = false) String searchTerm) {
         List<OffreEmploi> offres = offreEmploiService.getAllOffres();
+
+        if (searchTerm != null && !searchTerm.isEmpty()) {
+            // Recherche avec terme
+            offres = offreEmploiService.searchOffres(searchTerm);
+        } else {
+            // Toutes les offres
+            offres = offreEmploiService.getAllOffres();
+        }
 
         Map<Long, String> usersMap = offres.stream()
                 .collect(Collectors.toMap(
                         OffreEmploi::getId,
                         offre -> {
                             User user = userService.getUserById(offre.getUserId());
-                            return user.getEmail(); // ou user.getFirstName() + " " + user.getLastName()
+                            return user.getEmail();
                         }
                 ));
 
+
         model.addAttribute("offres", offres);
         model.addAttribute("usersMap", usersMap);
+        model.addAttribute("searchTerm", searchTerm);
 
         return "offres/liste";
     }

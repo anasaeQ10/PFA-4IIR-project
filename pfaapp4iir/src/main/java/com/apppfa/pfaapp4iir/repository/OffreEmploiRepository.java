@@ -4,6 +4,7 @@ package com.apppfa.pfaapp4iir.repository;
 import com.apppfa.pfaapp4iir.model.OffreEmploi;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -28,4 +29,13 @@ public interface OffreEmploiRepository extends JpaRepository<OffreEmploi, Long> 
                         arr -> (Long) arr[1]
                 ));
     }
+
+    @Query("SELECT o FROM OffreEmploi o WHERE " +
+            "LOWER(o.titre) LIKE LOWER(CONCAT('%', :searchTerm, '%')) OR " +
+            "LOWER(o.description) LIKE LOWER(CONCAT('%', :searchTerm, '%')) OR " +
+            "LOWER(o.typeEmploi) LIKE LOWER(CONCAT('%', :searchTerm, '%')) OR " +
+            "LOWER(o.nomSociete) LIKE LOWER(CONCAT('%', :searchTerm, '%')) OR " +
+            "LOWER(o.fonctionPoste) LIKE LOWER(CONCAT('%', :searchTerm, '%')) OR " +
+            "LOWER(o.secteurActivite) LIKE LOWER(CONCAT('%', :searchTerm, '%'))")
+    List<OffreEmploi> search(@Param("searchTerm") String searchTerm);
 }
