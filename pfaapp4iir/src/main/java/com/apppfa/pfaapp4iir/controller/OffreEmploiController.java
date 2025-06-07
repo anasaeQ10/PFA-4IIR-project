@@ -3,6 +3,7 @@ package com.apppfa.pfaapp4iir.controller;
 
 import com.apppfa.pfaapp4iir.model.OffreEmploi;
 import com.apppfa.pfaapp4iir.model.User;
+import com.apppfa.pfaapp4iir.service.EmailService;
 import com.apppfa.pfaapp4iir.service.OffreEmploiService;
 import com.apppfa.pfaapp4iir.service.UserService;
 import org.springframework.security.core.Authentication;
@@ -22,10 +23,12 @@ import java.util.stream.Collectors;
 public class OffreEmploiController {
     private final OffreEmploiService offreEmploiService;
     private final UserService userService;
+    private final EmailService emailService;
 
-    public OffreEmploiController(OffreEmploiService offreEmploiService, UserService userService) {
+    public OffreEmploiController(OffreEmploiService offreEmploiService, UserService userService, EmailService emailService) {
         this.offreEmploiService = offreEmploiService;
         this.userService = userService;
+        this.emailService = emailService;
     }
 
     @GetMapping("/ajouter")
@@ -75,6 +78,21 @@ public class OffreEmploiController {
             System.out.println("Offre sauvegardée avec ID: " + savedOffre.getId());
 
             redirectAttributes.addFlashAttribute("success", "Offre créée avec succès");
+
+            // 🎯 ENVOYER UN MAIL À TOUS LES UTILISATEURS ROLE_USER
+            List<User> allUsers = userService.getAllUsers();
+            for (User user : allUsers) {
+                if (user.getRole().equals("ROLE_USER")) {
+                    emailService.sendNewOffreEmail(
+                            user.getEmail(),
+                            user.getFirstName(),
+                            user.getLastName(),
+                            offre.getTitre(),
+                            offre.getDescription()
+                    );
+                }
+            }
+
             return "redirect:/offres/liste";
 
         } catch (Exception e) {
