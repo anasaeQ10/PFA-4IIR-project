@@ -45,6 +45,7 @@ Ce projet est une application web développée dans le cadre du Projet de Fin d'
 - Java 17+
 - Maven
 - MySQL (MAMP,XAMP,...)
+- sévice mail (https://mailtrap.io)
 
 ### Étapes
 
