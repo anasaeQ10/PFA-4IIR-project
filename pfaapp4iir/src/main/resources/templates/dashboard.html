@@ -149,6 +149,12 @@
                 </a>
             </div>
         </form>
+        <div class="d-flex justify-content-end mb-3"
+             th:if="${currentUser.role == 'ROLE_ADMIN'}">
+            <button class="btn btn-outline-secondary" onclick="printUserTable()">
+                <i class="bi bi-printer"></i> Imprimer la liste
+            </button>
+        </div>
 
         <!-- Tableau des utilisateurs -->
         <div class="card shadow-sm">
@@ -195,6 +201,91 @@
                         </tbody>
                     </table>
                 </div>
+
+                <script th:inline="javascript">
+                    function printUserTable() {
+                        // Récupérer le nom complet de l'utilisateur connecté
+                        var loggedInUserFullName = [[${#strings.escapeJavaScript(currentUser.firstName + ' ' + currentUser.lastName)}]];
+
+                        // Récupérer la date et l'heure actuelles
+                        const now = new Date();
+                        const formattedDate = now.toLocaleDateString('fr-FR', {
+                            weekday: 'long',
+                            year: 'numeric',
+                            month: 'long',
+                            day: 'numeric'
+                        });
+                        const formattedTime = now.toLocaleTimeString('fr-FR', {
+                            hour: '2-digit',
+                            minute: '2-digit',
+                            second: '2-digit'
+                        });
+
+                        const originalTable = document.querySelector('.user-table').cloneNode(true);
+
+                        const headerRow = originalTable.querySelector('thead tr');
+                        headerRow.removeChild(headerRow.lastElementChild);
+
+                        originalTable.querySelectorAll('tbody tr').forEach(row => {
+                            row.removeChild(row.lastElementChild);
+                        });
+
+                        const printWindow = window.open('', '', 'height=800,width=1200');
+                        printWindow.document.write('<html><head><title>Liste des Utilisateurs</title>');
+                        printWindow.document.write('<style>');
+                        printWindow.document.write(`
+            body {
+                font-family: 'Segoe UI', sans-serif;
+                margin: 40px;
+                color: #333;
+                background-color: #fdfdfd;
+            }
+            h2 {
+                text-align: center;
+                color: #2c3e50;
+                margin-bottom: 5px;
+            }
+            p.meta {
+                text-align: center;
+                font-size: 0.9rem;
+                color: #555;
+                margin-bottom: 25px;
+            }
+            table {
+                width: 100%;
+                border-collapse: collapse;
+                font-size: 0.95rem;
+                background-color: #fff;
+                box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            }
+            th {
+                background-color: #3498db;
+                color: white;
+                padding: 12px;
+                text-align: left;
+            }
+            td {
+                padding: 10px 12px;
+                border-bottom: 1px solid #eee;
+            }
+            tr:nth-child(even) {
+                background-color: #f8fafd;
+            }
+        `);
+                        printWindow.document.write('</style></head><body>');
+
+                        printWindow.document.write('<h2>📄 Liste des Utilisateurs</h2>');
+                        printWindow.document.write('<p class="meta">Imprimé le : ' + formattedDate + ' à ' + formattedTime + '<br>Par : ' + loggedInUserFullName + '</p>');
+                        printWindow.document.write(originalTable.outerHTML);
+                        printWindow.document.write('</body></html>');
+                        printWindow.document.close();
+                        printWindow.print();
+                    }
+                </script>
+
+
+
+
             </div>
         </div>
     </div>
