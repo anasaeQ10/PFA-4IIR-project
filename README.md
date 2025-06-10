@@ -33,6 +33,7 @@ Ce projet est une application web développée dans le cadre du Projet de Fin d'
 - 📂 Gestion des documents : ajout, suppression
 - 💼 Gestion des offres d’emploi
 - 📊 Statistiques interactives
+- 📨 gestion des envois des mails en cas de création d’un compte ou NV offre ou évènement 
 - 🖥️ Tableau de bord dynamique
 - 🎨 Interface claire et responsive
 - 📅 Gestion des événements 
@@ -44,6 +45,7 @@ Ce projet est une application web développée dans le cadre du Projet de Fin d'
 - Java 17+
 - Maven
 - MySQL (MAMP,XAMP,...)
+- sévice mail (https://mailtrap.io)
 
 ### Étapes
 
