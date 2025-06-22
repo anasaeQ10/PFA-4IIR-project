@@ -1,6 +1,6 @@
-# PFA - Application Web de Gestion (4IIR)
+# PFA - Application Web de l’association des étudiants (4IIR)
 
-Ce projet est une application web développée dans le cadre du Projet de Fin d'Année (PFA) de la filière 4IIR à l’EMSI. Il s'agit d'une plateforme de gestion d’utilisateurs, documents, statistiques et offres d'emploi avec une interface web conviviale.
+Ce projet est une etude et developpement d'un systeme de l’association des étudiants , développée dans le cadre du Projet de Fin d'Année (PFA) de la filière 4IIR à l’EMSI. Il s'agit d'une plateforme de gestion d’utilisateurs, documents, statistiques et offres d'emploi avec une interface web conviviale.
 
 ## 🛠 Technologies utilisées
 
